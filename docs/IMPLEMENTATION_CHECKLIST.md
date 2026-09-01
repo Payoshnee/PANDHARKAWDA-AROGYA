@@ -1,0 +1,31 @@
+# Implementation Checklist
+
+- [x] Foundation docs
+- [x] Monorepo skeleton
+- [x] Root `.gitignore`
+- [x] Design tokens
+- [x] FastAPI shell
+- [x] Frontend ESLint command
+- [x] Frontend Prettier config
+- [x] Frontend Tailwind/PostCSS config
+- [x] Frontend env validation
+- [x] TanStack Query provider
+- [x] Backend `/api/v1/meta`
+- [x] Backend request ID middleware
+- [x] Structured request logging
+- [x] SQLAlchemy async session foundation
+- [x] SQLAlchemy normalized model inventory
+- [x] API validation error handler
+- [x] Stable 404 error contracts for content endpoints
+- [x] Domain schedule engine
+- [x] Red-flag engine
+- [x] Public API contracts
+- [x] Next.js route inventory
+- [x] Bilingual UI architecture
+- [x] Demo seed data
+- [~] PostgreSQL migrations
+- [~] Dependency vulnerability audit
+- [~] Full admin persistence workflows
+- [~] PWA offline cache
+- [~] E2E screenshots
+- [!] Real Pandharkawda healthcare import is intentionally not committed
