@@ -46,4 +46,20 @@ flowchart TD
 - `make build`
 - `make e2e`
 
+## Local Ollama
+
+Ask Arogya can use local Ollama for optional explanations while still grounding local facts in the API data/tools.
+
+1. Start Ollama locally.
+2. Ensure a chat model is available, for example `ollama pull llama3:8b`.
+3. Set:
+
+```bash
+LLM_PROVIDER=ollama
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=llama3:8b
+```
+
+Emergency red flags, local fact lookup, and safety post-checks run before/after the model regardless of provider.
+
 See `docs/` for product, architecture, API, database, safety, testing, deployment, and feature audit details.

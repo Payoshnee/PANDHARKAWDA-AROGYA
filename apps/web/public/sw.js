@@ -1,5 +1,12 @@
 const CACHE_NAME = "pandharkawda-arogya-emergency-v1";
 const OFFLINE_SAFE_URLS = ["/", "/emergency", "/manifest.webmanifest", "/icon.svg", "/emergency-offline.json"];
+const NETWORK_ONLY_URL_PREFIXES = [
+  "/api/v1/facilities/open-now",
+  "/api/v1/search",
+  "/api/v1/visiting-sessions",
+  "/api/v1/doctors",
+  "/api/v1/facilities"
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(OFFLINE_SAFE_URLS)));
@@ -16,6 +23,7 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
   if (event.request.method !== "GET" || url.origin !== self.location.origin) return;
+  if (NETWORK_ONLY_URL_PREFIXES.some((prefix) => url.pathname.startsWith(prefix))) return;
 
   const isEmergencySafe = OFFLINE_SAFE_URLS.includes(url.pathname);
   if (!isEmergencySafe) return;

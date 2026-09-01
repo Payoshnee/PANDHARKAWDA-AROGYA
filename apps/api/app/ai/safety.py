@@ -24,6 +24,12 @@ UNSAFE_MEDICAL_PATTERNS = [
     re.compile(r"\bignore (?:the )?(?:doctor|clinician|emergency)\b", re.IGNORECASE)
 ]
 
+OVERCONFIDENT_TEST_PREP_PATTERNS = [
+    re.compile(r"\byou should (?:probably )?fast\b", re.IGNORECASE),
+    re.compile(r"\bmust fast\b", re.IGNORECASE),
+    re.compile(r"\balways fast\b", re.IGNORECASE),
+]
+
 PROMPT_INJECTION_PATTERNS = [
     re.compile(r"ignore (?:all )?(?:previous|system|safety) instructions", re.IGNORECASE),
     re.compile(r"reveal (?:your )?(?:system prompt|hidden instructions)", re.IGNORECASE),
@@ -40,6 +46,8 @@ def check_model_output(output: str, has_sources: bool) -> SafetyCheckResult:
         return SafetyCheckResult(allowed=True)
     if any(pattern.search(output) for pattern in UNSAFE_MEDICAL_PATTERNS):
         return SafetyCheckResult(allowed=False, reason="UNSAFE_MEDICAL_ADVICE")
+    if any(pattern.search(output) for pattern in OVERCONFIDENT_TEST_PREP_PATTERNS):
+        return SafetyCheckResult(allowed=False, reason="OVERCONFIDENT_TEST_PREPARATION")
     if not has_sources and any(pattern.search(output) for pattern in LOCAL_FACT_PATTERNS):
         return SafetyCheckResult(allowed=False, reason="UNSOURCED_LOCAL_FACT")
     return SafetyCheckResult(allowed=True)

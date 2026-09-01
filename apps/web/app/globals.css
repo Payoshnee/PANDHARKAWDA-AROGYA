@@ -52,6 +52,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .emergency-bar { background: #fff2f0; border-bottom: 1px solid #f3b8b0; }
 .emergency-bar .inner { max-width: 1180px; margin: 0 auto; padding: .5rem 1rem; display: flex; justify-content: space-between; gap: 1rem; align-items: center; }
 .offline-banner { background: #fff8e8; color: var(--stale); border-bottom: 1px solid #f4d59f; padding: .55rem 1rem; text-align: center; font-weight: 650; }
+.install-prompt { position: fixed; right: 1rem; bottom: 4.25rem; z-index: 25; max-width: 360px; background: white; border: 1px solid var(--border); border-radius: 8px; padding: .75rem; display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; box-shadow: 0 12px 30px rgba(23,32,29,.12); }
 .grid { display: grid; gap: 1rem; }
 .grid.two { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .grid.three { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }

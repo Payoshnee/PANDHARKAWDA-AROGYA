@@ -48,6 +48,12 @@ def test_unsafe_medical_advice_is_blocked_even_with_sources():
     assert result.reason == "UNSAFE_MEDICAL_ADVICE"
 
 
+def test_overconfident_test_preparation_is_blocked():
+    result = check_model_output("You should probably fast before a lipid profile.", has_sources=True)
+    assert result.allowed is False
+    assert result.reason == "OVERCONFIDENT_TEST_PREPARATION"
+
+
 def test_optional_llm_explanation_blocks_bad_provider_output(monkeypatch):
     monkeypatch.setattr(orchestrator, "build_ai_provider", lambda: UnsafeProvider())
     result = asyncio.run(optional_llm_explanation("general question", "No verified local facts were found for this question.", "en"))
