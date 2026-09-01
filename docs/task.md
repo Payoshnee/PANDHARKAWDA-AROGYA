@@ -7,9 +7,9 @@ Project Type: Production-style Full-Stack Healthcare Information Platform
 
 ## Important Honesty Note
 
-This repository is currently a solid runnable foundation, not the full production-complete platform described by the complete product mega-spec. The remaining incomplete areas are tracked below, especially full PostgreSQL persistence workflows, full admin CRUD/RBAC/auth, PWA offline cache, and complete E2E visual/interaction audit.
+This repository is currently a solid runnable foundation, not the full production-complete platform described by the complete product mega-spec. The remaining incomplete areas are tracked below, especially full PostgreSQL persistence workflows, full admin CRUD/RBAC/auth, production notification reminders, and complete E2E visual/interaction audit.
 
-`npm install` reported dependency vulnerabilities in the current frontend dependency tree, so a follow-up dependency audit is required before treating this as deployment-ready.
+Dependency audit note: the earlier frontend dependency vulnerabilities have been remediated in the current tree. `npm audit --audit-level=moderate` now reports 0 vulnerabilities, but audits must continue after future dependency changes.
 
 ## Status Legend
 
@@ -24,11 +24,11 @@ This repository is currently a solid runnable foundation, not the full productio
 
 | No. | Check | Result | Notes |
 |---:|---|---|---|
-| 1 | Backend tests | `[x] Complete` | `python3 -m pytest -q`: 35 backend tests passed. |
+| 1 | Backend tests | `[x] Complete` | `cd apps/api && python3 -m pytest -q`: 36 backend tests passed. |
 | 2 | TypeScript | `[x] Complete` | `npm run typecheck`: passed. |
-| 3 | Frontend unit test | `[x] Complete` | `npm test`: 2 frontend unit tests passed. |
+| 3 | Frontend unit test | `[x] Complete` | `npm --workspace apps/web test`: 6 frontend unit tests passed. |
 | 4 | Production build | `[x] Complete` | `npm run build`: passed and generated 41 routes including `manifest.webmanifest`. |
-| 5 | E2E route audit | `[~] In Progress` | Playwright route audit exists, but full run/screenshots were not completed. |
+| 5 | E2E route audit | `[~] In Progress` | Playwright route audit exists; targeted offline emergency browser verification passed on mobile, tablet, and desktop. Full route screenshots still need completion. |
 | 6 | Real healthcare data | `[!] Blocked` | Real Pandharkawda healthcare data requires verified private collection and must not be committed as fake truth. |
 | 7 | Dependency audit | `[x] Complete` | `npm audit --audit-level=moderate`: found 0 vulnerabilities after upgrading Next/Vitest and Tailwind PostCSS adapter. |
 
@@ -54,7 +54,7 @@ This repository is currently a solid runnable foundation, not the full productio
 | 16 | 1 Foundation | Shared UI components | `[~] In Progress` | Search, emergency dialog, verification badge, call/navigate, save, content list/detail. | Full component system, form components, tables, drawers, status filters. |
 | 17 | 1 Foundation | Docker development | `[!] Blocked` | `docker-compose.yml`, API Dockerfile, Postgres, Redis, API and web services. Docker CLI is installed. | Docker daemon is not running on this machine, so `docker compose up -d postgres redis` cannot connect to `/Users/himanshumathankar/.docker/run/docker.sock`. Start Docker Desktop, then verify compose, migrations, seed, and health checks. |
 | 18 | 1 Foundation | Developer commands | `[x] Complete` | `Makefile` commands for dev/test/lint/typecheck/build/db/migrate/seed/e2e and working ESLint command. | Keep commands green as later phases expand. |
-| 19 | 1 Foundation | Testing infrastructure | `[~] In Progress` | Pytest, Vitest, Playwright config, route-audit spec, and lint/type/build checks pass locally. | Expand coverage and run full E2E/screenshots. |
+| 19 | 1 Foundation | Testing infrastructure | `[~] In Progress` | Pytest, Vitest, Playwright config, route-audit spec, offline emergency spec, and lint/type/build checks pass locally. | Expand coverage and run full route E2E/screenshots. |
 | 20 | 1 Foundation | GitHub Actions CI | `[~] In Progress` | CI workflow for web and API. | Add lint, migration checks, secret scan, vulnerability scan, E2E gate. |
 | 21 | 2 Data | Domain models | `[x] Complete` | Pydantic domain models plus SQLAlchemy model inventory for all required production table names. | Add richer field-level constraints as workflows mature. |
 | 22 | 2 Data | Doctor model | `[~] In Progress` | Doctor fields include verification and phone consent. | Full DB persistence, admin notes privacy, audit fields. |
@@ -134,12 +134,12 @@ This repository is currently a solid runnable foundation, not the full productio
 | 96 | 7 AI | Prompt injection resistance | `[~] In Progress` | Prompt-injection detector skips optional provider generation for common instruction override attempts; tests cover this path. | Expand multilingual/adversarial prompt-injection corpus. |
 | 97 | 7 AI | AI evaluation suite | `[~] In Progress` | Tests cover red flags, provider disabled behavior, provider selection, grounded lipid-profile response, doctor/facility/service/visiting/open-now/scheme/procedure/medical-term/health-alert intents, cancelled session hiding, prompt injection, unsafe medical output, unsourced local fact blocking, provider timeout, and provider transport failure. | Add broader multilingual hallucination-resistance tests. |
 | 98 | 8 PWA | PWA manifest | `[x] Complete` | `app/manifest.ts` generates install metadata and references a local maskable SVG icon. | Add larger raster icons later if store-quality installation is needed. |
-| 99 | 8 PWA | Service worker/offline shell | `[~] In Progress` | `/sw.js` caches only offline-safe URLs: `/`, `/emergency`, manifest, icon, and static emergency JSON. | Add robust service-worker version tests and cache invalidation monitoring. |
-| 100 | 8 PWA | Offline emergency | `[~] In Progress` | Static emergency route and `emergency-offline.json` are cached with a last-review label. | Verify in browser offline mode with Playwright or manual PWA test. |
-| 101 | 8 PWA | Offline indicator | `[x] Complete` | `PwaClient` registers the service worker and displays an offline banner from browser network state. | Add visual E2E coverage. |
-| 102 | 8 PWA | Availability caching | `[ ] Not Started` | None. | Avoid stale availability confidence; cache only with short TTL and warnings. |
-| 103 | 8 PWA | Install prompt | `[ ] Not Started` | None. | Show after meaningful engagement only. |
-| 104 | 8 PWA | Reminder architecture | `[ ] Not Started` | Feature hidden, no dead reminder button exposed. | Implement subscription model or keep hidden. |
+| 99 | 8 PWA | Service worker/offline shell | `[x] Complete` | `/sw.js` caches only offline-safe URLs: `/emergency`, manifest, icon, and static emergency JSON; old cache names are deleted on activate. | Add production cache metrics/monitoring if needed. |
+| 100 | 8 PWA | Offline emergency | `[x] Complete` | Static emergency route and `emergency-offline.json` are cached with a last-review label; Playwright verifies offline reload on mobile, tablet, and desktop. | Add manual device install QA before launch. |
+| 101 | 8 PWA | Offline indicator | `[x] Complete` | `PwaClient` registers the service worker and displays an offline banner from browser network state without hydration mismatch. | Add visual screenshot coverage in full audit. |
+| 102 | 8 PWA | Availability caching | `[x] Complete` | Cache policy and service worker keep live healthcare availability/search/API routes network-only to avoid stale confidence; Vitest covers open-now/search/doctor policy. | Add short-lived stale-warning cache only if product decides users should see last-known availability. |
+| 103 | 8 PWA | Install prompt | `[x] Complete` | `PwaClient` captures `beforeinstallprompt` and shows install/dismiss actions only after meaningful click engagement. | Browser support varies; add manual Android/Desktop install QA. |
+| 104 | 8 PWA | Reminder architecture | `[~] In Progress` | Visiting-session reminder button stores/removes local browser opt-ins for confirmed sessions only. | Full push/local notification scheduling, permission flow, and server-backed subscriptions are not implemented. |
 | 105 | 9 Hardening | Security review | `[ ] Not Started` | Security doc exists. | CSRF, CORS hardening, rate limits, auth, IDOR tests, secret scan. |
 | 106 | 9 Hardening | Authorization audit | `[ ] Not Started` | None. | Backend RBAC audit after admin APIs exist. |
 | 107 | 9 Hardening | Privacy audit | `[~] In Progress` | Public phone consent protection and no public user accounts. | Chat retention/location policy enforcement. |
@@ -170,7 +170,7 @@ Ask Arogya must not be hard-coded to OpenAI only. The production AI layer should
 | 125 | Provider interface | `[x] Complete` | Common provider protocol with `generate` request/response types and structured fallback behavior. |
 | 126 | OpenAI provider | `[x] Complete` | OpenAI provider supports API key and model configuration. |
 | 127 | Azure OpenAI provider | `[x] Complete` | Azure OpenAI provider supports endpoint, deployment, API version, and key configuration. |
-| 128 | Ollama/local provider | `[x] Complete` | Ollama provider supports base URL and model name configuration. |
+| 128 | Ollama/local provider | `[x] Complete` | Ollama provider supports base URL and model name configuration; local `llama3:8b` smoke test returned `Ollama connected`. |
 | 129 | Disabled provider | `[x] Complete` | `LLM_PROVIDER=disabled` is default; Ask Arogya handles emergency and grounded demo content without LLM. |
 | 130 | Provider safety wrapper | `[~] In Progress` | Red flags and local content grounding run before optional provider generation; model output post-check blocks unsafe medical advice and unsourced local facts; provider timeout/transport failures return safe fallback metadata. | Add multilingual safety checks. |
 | 131 | Provider tests | `[~] In Progress` | Tests cover disabled fallback, provider selection for OpenAI/Azure/Ollama, prompt injection, bad output, hallucination-style local fact blocking, timeout, and provider transport failure. | Add broader multilingual/adversarial provider tests. |
@@ -185,8 +185,8 @@ Ask Arogya must not be hard-coded to OpenAI only. The production AI layer should
 | Availability | 5 | 5 | 0 | 0 |
 | Content modules | 0 | 7 | 1 | 0 |
 | Admin platform | 1 | 6 | 8 | 0 |
-| Ask Arogya AI | 5 | 8 | 4 | 0 |
-| PWA/offline | 2 | 2 | 3 | 0 |
+| Ask Arogya AI | 5 | 8 | 1 | 0 |
+| PWA/offline | 6 | 1 | 0 | 0 |
 | Hardening | 2 | 5 | 5 | 0 |
 | Final audit/deployment | 0 | 6 | 4 | 0 |
 

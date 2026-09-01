@@ -41,6 +41,8 @@
 - [x] OpenAI provider adapter
 - [x] Azure OpenAI provider adapter
 - [x] Ollama provider adapter
+- [x] Local Ollama smoke test script
+- [x] Local Ollama `llama3:8b` connection verified
 - [x] Disabled AI provider mode
 - [x] AI provider selection tests
 - [~] AI provider safety wrapper
@@ -63,8 +65,14 @@
 - [x] AI provider transport failure fallback test
 - [x] PWA manifest
 - [x] PWA icon asset
-- [~] Service worker offline-safe cache
-- [~] Offline emergency cache
+- [x] Service worker offline-safe cache
+- [x] Service worker cache invalidation on version changes
+- [x] Offline emergency cache
+- [x] Offline emergency browser verification
+- [x] Availability cache strategy keeps live healthcare APIs network-only
+- [x] Availability cache policy unit tests
+- [x] PWA install prompt after engagement
+- [~] Visiting-session reminder architecture
 - [x] Offline network indicator
 - [x] Offline emergency payload unit test
 - [x] Domain schedule engine
@@ -77,6 +85,6 @@
 - [x] Dependency vulnerability audit
 - [!] Docker daemon not running; compose verification blocked
 - [~] Full admin persistence workflows
-- [~] PWA offline cache
+- [x] PWA offline emergency cache
 - [~] E2E screenshots
 - [!] Real Pandharkawda healthcare import is intentionally not committed

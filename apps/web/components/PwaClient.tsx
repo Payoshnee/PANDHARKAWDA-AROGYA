@@ -8,10 +8,7 @@ type BeforeInstallPromptEvent = Event & {
 };
 
 export function PwaClient() {
-  const [offline, setOffline] = useState(() => {
-    if (typeof navigator === "undefined") return false;
-    return !navigator.onLine;
-  });
+  const [offline, setOffline] = useState(false);
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [engaged, setEngaged] = useState(false);
 
@@ -32,6 +29,7 @@ export function PwaClient() {
         // Offline emergency still works when already cached; registration failures are non-fatal.
       });
     }
+    update();
 
     return () => {
       window.removeEventListener("online", update);

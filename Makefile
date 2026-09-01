@@ -1,4 +1,10 @@
-.PHONY: dev web api test lint typecheck db-up migrate seed e2e build
+.PHONY: start stop dev web api test lint typecheck db-up migrate seed e2e build
+
+start:
+	./start.sh
+
+stop:
+	./stop.sh
 
 dev:
 	docker compose up --build
