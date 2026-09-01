@@ -19,6 +19,20 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
   return response.json() as Promise<T>;
 }
 
+export async function adminApiGet<T>(path: string, cookieHeader: string): Promise<T> {
+  const response = await fetch(`${baseUrl}${path}`, {
+    cache: "no-store",
+    headers: {
+      cookie: cookieHeader
+    }
+  });
+  if (!response.ok) throw new Error(`ADMIN_API_${response.status}`);
+  return response.json() as Promise<T>;
+}
+
 export type Doctor = { id: string; slug: string; name_en: string; name_mr: string; qualification: string; specialty: string; doctor_type: string; phone_public: string | null; last_verified_at: string | null };
 export type Facility = { id: string; slug: string; type: string; name_en: string; name_mr: string; address_en: string; address_mr: string; phone_public: string | null; emergency_flag: boolean; services: string[]; latitude: number | null; longitude: number | null; last_verified_at: string | null };
 export type ContentRecord = { id: string; slug: string; title_en: string; title_mr: string; summary_en: string; summary_mr: string; source: string; review_date: string };
+export type IncorrectInfoReport = { id: string; target_type: string; target_id: string; reason: string; details: string | null; contact: string | null; status: string; created_at: string };
+export type AuditLog = { id: string; actor: string; action: string; entity_type: string; entity_id: string; created_at: string };
+export type VerificationQueueItem = { id: string; entity_type: string; entity_id: string; status: string; change_summary: string; submitted_by: string; source: string; risk: string; created_at: string; resolved_at: string | null; decision_reason: string | null };

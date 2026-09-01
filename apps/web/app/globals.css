@@ -51,6 +51,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .main { flex: 1; max-width: 1180px; width: 100%; margin: 0 auto; padding: 1.25rem 1rem 5rem; }
 .emergency-bar { background: #fff2f0; border-bottom: 1px solid #f3b8b0; }
 .emergency-bar .inner { max-width: 1180px; margin: 0 auto; padding: .5rem 1rem; display: flex; justify-content: space-between; gap: 1rem; align-items: center; }
+.offline-banner { background: #fff8e8; color: var(--stale); border-bottom: 1px solid #f4d59f; padding: .55rem 1rem; text-align: center; font-weight: 650; }
 .grid { display: grid; gap: 1rem; }
 .grid.two { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .grid.three { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }

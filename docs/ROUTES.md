@@ -28,6 +28,7 @@
 ## Admin
 
 - `/admin`
+- `/admin/login`
 - `/admin/doctors`
 - `/admin/specialties`
 - `/admin/facilities`

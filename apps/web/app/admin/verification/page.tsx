@@ -1,2 +1,5 @@
-import { AdminPlaceholder } from "../../../components/Admin";
-export default function Page() { return <AdminPlaceholder title="Verification Queue" />; }
+import { AdminVerificationPage } from "../../../components/Admin";
+
+export default function Page() {
+  return <AdminVerificationPage />;
+}

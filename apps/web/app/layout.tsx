@@ -1,6 +1,7 @@
 import "./globals.css";
 import { AppChrome } from "../components/Layout";
 import { Providers } from "../components/Providers";
+import { PwaClient } from "../components/PwaClient";
 
 export const metadata = {
   title: "Pandharkawda Arogya",
@@ -8,5 +9,5 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="en"><body><Providers><AppChrome>{children}</AppChrome></Providers></body></html>;
+  return <html lang="en"><body><Providers><PwaClient /><AppChrome>{children}</AppChrome></Providers></body></html>;
 }

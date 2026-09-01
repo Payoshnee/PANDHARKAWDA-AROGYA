@@ -17,6 +17,56 @@
 - [x] SQLAlchemy normalized model inventory
 - [x] API validation error handler
 - [x] Stable 404 error contracts for content endpoints
+- [x] Report repository foundation
+- [x] Admin reports endpoint
+- [x] Admin audit logs endpoint
+- [x] Admin reports table UI
+- [x] Admin audit log table UI
+- [x] Verification queue endpoint
+- [x] Verification approve endpoint
+- [x] Verification reject endpoint
+- [x] Verification queue admin table UI
+- [x] Verification decisions create audit entries
+- [~] Admin authentication foundation
+- [~] Backend RBAC foundation
+- [x] Admin login route
+- [x] Next admin auth login proxy
+- [x] Next admin auth logout proxy
+- [x] Admin protected-page login fallback
+- [x] Admin unauthorized test
+- [x] Admin forbidden test
+- [x] Admin login lockout/backoff
+- [x] Admin lockout test
+- [x] AI provider interface
+- [x] OpenAI provider adapter
+- [x] Azure OpenAI provider adapter
+- [x] Ollama provider adapter
+- [x] Disabled AI provider mode
+- [x] AI provider selection tests
+- [~] AI provider safety wrapper
+- [x] Ask Arogya deterministic intent classifier
+- [x] Ask Arogya doctor local fact tool
+- [x] Ask Arogya visiting session local fact tool
+- [x] Ask Arogya open-now local fact tool
+- [x] Ask Arogya scheme local fact tool
+- [x] Ask Arogya facility local fact tool
+- [x] Ask Arogya service local fact tool
+- [x] Ask Arogya procedure local fact tool
+- [x] Ask Arogya medical-term local fact tool
+- [x] Ask Arogya health-alert local fact tool
+- [x] Ask Arogya expanded intent tests
+- [x] AI prompt-injection detector
+- [x] AI model-output safety post-check
+- [x] AI unsafe medical advice blocking test
+- [x] AI unsourced local fact blocking test
+- [x] AI provider timeout fallback test
+- [x] AI provider transport failure fallback test
+- [x] PWA manifest
+- [x] PWA icon asset
+- [~] Service worker offline-safe cache
+- [~] Offline emergency cache
+- [x] Offline network indicator
+- [x] Offline emergency payload unit test
 - [x] Domain schedule engine
 - [x] Red-flag engine
 - [x] Public API contracts
@@ -24,7 +74,8 @@
 - [x] Bilingual UI architecture
 - [x] Demo seed data
 - [~] PostgreSQL migrations
-- [~] Dependency vulnerability audit
+- [x] Dependency vulnerability audit
+- [!] Docker daemon not running; compose verification blocked
 - [~] Full admin persistence workflows
 - [~] PWA offline cache
 - [~] E2E screenshots

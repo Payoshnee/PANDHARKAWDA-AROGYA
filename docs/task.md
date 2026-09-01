@@ -24,13 +24,13 @@ This repository is currently a solid runnable foundation, not the full productio
 
 | No. | Check | Result | Notes |
 |---:|---|---|---|
-| 1 | Backend tests | `[x] Complete` | `python3 -m pytest -q`: 6 backend tests passed. |
+| 1 | Backend tests | `[x] Complete` | `python3 -m pytest -q`: 35 backend tests passed. |
 | 2 | TypeScript | `[x] Complete` | `npm run typecheck`: passed. |
-| 3 | Frontend unit test | `[x] Complete` | `npm test`: passed. |
-| 4 | Production build | `[x] Complete` | `npm run build`: passed and generated 38 routes. |
+| 3 | Frontend unit test | `[x] Complete` | `npm test`: 2 frontend unit tests passed. |
+| 4 | Production build | `[x] Complete` | `npm run build`: passed and generated 41 routes including `manifest.webmanifest`. |
 | 5 | E2E route audit | `[~] In Progress` | Playwright route audit exists, but full run/screenshots were not completed. |
 | 6 | Real healthcare data | `[!] Blocked` | Real Pandharkawda healthcare data requires verified private collection and must not be committed as fake truth. |
-| 7 | Dependency audit | `[~] In Progress` | `npm install` still reports 7 vulnerabilities; run and resolve `npm audit`. |
+| 7 | Dependency audit | `[x] Complete` | `npm audit --audit-level=moderate`: found 0 vulnerabilities after upgrading Next/Vitest and Tailwind PostCSS adapter. |
 
 ## Master Numbered Task Table
 
@@ -52,7 +52,7 @@ This repository is currently a solid runnable foundation, not the full productio
 | 14 | 1 Foundation | Public app shell | `[x] Complete` | Header, global emergency bar, mobile nav, public routes. | More refined footer and offline banner. |
 | 15 | 1 Foundation | Admin shell foundation | `[~] In Progress` | Admin sidebar and all admin route destinations exist. | Authenticated layout, breadcrumbs, command search, notifications, user menu. |
 | 16 | 1 Foundation | Shared UI components | `[~] In Progress` | Search, emergency dialog, verification badge, call/navigate, save, content list/detail. | Full component system, form components, tables, drawers, status filters. |
-| 17 | 1 Foundation | Docker development | `[~] In Progress` | `docker-compose.yml`, API Dockerfile, Postgres, Redis, API and web services. | Verify full `docker compose up`, migrations, seed, and health checks end-to-end. |
+| 17 | 1 Foundation | Docker development | `[!] Blocked` | `docker-compose.yml`, API Dockerfile, Postgres, Redis, API and web services. Docker CLI is installed. | Docker daemon is not running on this machine, so `docker compose up -d postgres redis` cannot connect to `/Users/himanshumathankar/.docker/run/docker.sock`. Start Docker Desktop, then verify compose, migrations, seed, and health checks. |
 | 18 | 1 Foundation | Developer commands | `[x] Complete` | `Makefile` commands for dev/test/lint/typecheck/build/db/migrate/seed/e2e and working ESLint command. | Keep commands green as later phases expand. |
 | 19 | 1 Foundation | Testing infrastructure | `[~] In Progress` | Pytest, Vitest, Playwright config, route-audit spec, and lint/type/build checks pass locally. | Expand coverage and run full E2E/screenshots. |
 | 20 | 1 Foundation | GitHub Actions CI | `[~] In Progress` | CI workflow for web and API. | Add lint, migration checks, secret scan, vulnerability scan, E2E gate. |
@@ -83,7 +83,7 @@ This repository is currently a solid runnable foundation, not the full productio
 | 45 | 3 Public | Maps | `[~] In Progress` | OpenStreetMap external deep links. | Leaflet embedded maps and user-position distance calculation. |
 | 46 | 3 Public | User location | `[ ] Not Started` | No automatic tracking, privacy-safe by omission. | Explicit permission flow and non-persistent distance calculation. |
 | 47 | 3 Public | Favorites | `[x] Complete` | Browser local storage save/clear flow and `/saved`. | Show rich saved item details, not only IDs. |
-| 48 | 3 Public | Report incorrect information | `[x] Complete` | Public report form posts to API and returns success state. | Persist reports to DB and show in admin queue. |
+| 48 | 3 Public | Report incorrect information | `[x] Complete` | Public report form posts to API, creates an in-process report record, creates an audit entry, and returns success state. | Move report/audit persistence to SQLAlchemy DB repositories. |
 | 49 | 3 Public | Bilingual public experience | `[~] In Progress` | Language switch and curated dictionaries exist. | Apply translations across all visible public/admin strings. |
 | 50 | 3 Public | Accessibility foundation | `[~] In Progress` | Skip link, semantic landmarks, focus styles, accessible dialog role. | Full WCAG 2.2 AA audit and keyboard testing. |
 | 51 | 3 Public | SEO foundation | `[~] In Progress` | Metadata, robots, sitemap. | Localized metadata, JSON-LD, breadcrumbs, admin noindex verification. |
@@ -105,52 +105,52 @@ This repository is currently a solid runnable foundation, not the full productio
 | 67 | 5 Content | Health alerts | `[~] In Progress` | Alert list from API. | Expiry filtering, severity, geography, publishing workflow. |
 | 68 | 5 Content | Public health analytics | `[ ] Not Started` | None exposed, avoiding fake charts. | Demo-mode-only dataset architecture and clear labelling. |
 | 69 | 5 Content | Content source attribution | `[~] In Progress` | Source and review date displayed on content cards. | Normalized sources, reviewer identity, next review due. |
-| 70 | 6 Admin | Admin authentication | `[ ] Not Started` | None. | Secure cookie/JWT strategy, Argon2, login, logout, rate limit, lockout, MFA architecture. |
-| 71 | 6 Admin | RBAC | `[ ] Not Started` | Roles documented. | Backend permission checks for all admin APIs. |
-| 72 | 6 Admin | Admin dashboard | `[~] In Progress` | `/admin` overview uses API-derived demo statistics. | Real DB metrics, verification queue, freshness summary. |
-| 73 | 6 Admin | Admin route inventory | `[x] Complete` | Every required sidebar destination exists. | Replace placeholder route content with actual workflows. |
+| 70 | 6 Admin | Admin authentication | `[~] In Progress` | Backend Argon2 password verification, in-memory demo admin sessions, secure cookie issuance, login/logout/me endpoints, login lockout/backoff after repeated failures, `/admin/login` form route, Next auth proxy routes for login/logout cookie forwarding, protected admin page login fallbacks, and tests for login, unauthorized access, and lockout. | DB-backed admins, session persistence, Redis-backed rate limiting, MFA architecture, and full browser E2E auth verification. |
+| 71 | 6 Admin | RBAC | `[~] In Progress` | Backend roles/permissions map, dependency-based permission checks, protected admin endpoints, and forbidden-action test. | Persist roles/permissions in DB and apply checks to all future admin APIs. |
+| 72 | 6 Admin | Admin dashboard | `[~] In Progress` | `/admin` overview uses API-derived demo statistics and unresolved report count from repository. | Real DB metrics, verification queue, freshness summary. |
+| 73 | 6 Admin | Admin route inventory | `[x] Complete` | Every required sidebar destination exists, plus `/admin/login`. | Replace remaining placeholder route content with actual workflows. |
 | 74 | 6 Admin | Doctor administration | `[ ] Not Started` | Admin route exists only. | List, filters, create/edit forms, validation, audit. |
 | 75 | 6 Admin | Facility administration | `[ ] Not Started` | Admin route exists only. | Form, map pin confirmation, services/hours editor. |
 | 76 | 6 Admin | Specialty/service management | `[ ] Not Started` | Admin routes exist only. | CRUD with verification/audit where required. |
 | 77 | 6 Admin | Schedule editor | `[ ] Not Started` | Admin route exists only. | Weekly schedule UI, exceptions, overlap validation. |
 | 78 | 6 Admin | Visiting sessions admin | `[ ] Not Started` | Admin route exists only. | Create/update/cancel/reschedule sessions and public reflection. |
-| 79 | 6 Admin | Verification queue | `[~] In Progress` | Report API says queue item created; admin route exists. | Persistent queue, before/after diff, approve/reject/correct workflow. |
-| 80 | 6 Admin | User reports | `[~] In Progress` | Public report submission exists. | Admin report list, resolution, audit. |
+| 79 | 6 Admin | Verification queue | `[~] In Progress` | Report API creates an in-process queue item; `GET /api/v1/admin/verification` lists items; approve/reject endpoints update status and create audit logs; `/admin/verification` renders an API-backed review table with working decision actions. | DB persistence, before/after diff, request-correction workflow, and real RBAC. |
+| 80 | 6 Admin | User reports | `[~] In Progress` | Public report submission exists, `GET /api/v1/admin/reports` exposes submitted reports, and `/admin/reports` renders an API-backed table with empty state. | Add resolution workflow and DB persistence. |
 | 81 | 6 Admin | Content management | `[ ] Not Started` | Admin routes exist only. | Forms for schemes, tests, procedures, knowledge, notices, alerts. |
-| 82 | 6 Admin | Audit logs | `[~] In Progress` | Migration includes `audit_logs` table shell; route exists. | Immutable service and admin timeline. |
+| 82 | 6 Admin | Audit logs | `[~] In Progress` | Migration includes `audit_logs` table shell; report submissions and verification decisions create in-process audit entries exposed by `GET /api/v1/admin/audit-logs`, and `/admin/audit-log` renders an API-backed table with empty state. | Move to immutable DB service and richer admin timeline. |
 | 83 | 6 Admin | Freshness queue/job | `[ ] Not Started` | Review policy documented. | Background job and admin queue. |
-| 84 | 7 AI | Chat API | `[~] In Progress` | `POST /api/v1/chat` returns structured response with message, cards, actions, sources, verification. | Full intent classification and retrieval orchestration. |
-| 85 | 7 AI | Multi-provider AI adapter | `[ ] Not Started` | Requirement added here. | Build provider interface supporting OpenAI, Azure OpenAI, Ollama/local models, and future providers via configuration. |
-| 86 | 7 AI | AI provider configuration | `[ ] Not Started` | `LLM_PROVIDER=disabled` exists in `.env.example`. | Add `LLM_PROVIDER=openai\|azure_openai\|ollama\|disabled`, model names, base URLs, API keys, timeouts, retries. |
+| 84 | 7 AI | Chat API | `[~] In Progress` | `POST /api/v1/chat` is async, returns structured response with message, cards, actions, sources, verification, and optional provider metadata. | Full intent classification and retrieval orchestration. |
+| 85 | 7 AI | Multi-provider AI adapter | `[x] Complete` | Provider interface and implementations exist for disabled, OpenAI, Azure OpenAI, and Ollama/local models. Provider selection is tested. | Add streaming only if the chat UX later needs it. |
+| 86 | 7 AI | AI provider configuration | `[x] Complete` | `.env.example` and API settings include `LLM_PROVIDER`, OpenAI, Azure OpenAI, and Ollama configuration fields. | Add per-provider retry/timeout tuning in production settings. |
 | 87 | 7 AI | Provider fallback strategy | `[ ] Not Started` | None. | Decide safe fallback order; local facts must still come only from DB/reviewed content. |
-| 88 | 7 AI | Intent layer | `[~] In Progress` | Basic lipid-profile and unknown handling exists. | Implement all intents: doctor, specialty, visiting, open now, facility, service, emergency, triage, schemes, alerts, education. |
-| 89 | 7 AI | Tool layer | `[~] In Progress` | Chat can use demo lab-test content and emergency actions. | Formal local fact tools for doctors, facilities, schedules, schemes, tests, procedures, alerts. |
+| 88 | 7 AI | Intent layer | `[~] In Progress` | Deterministic classifier supports doctor search, visiting specialists, open-now, facility search, service search, test preparation, procedure explanation, scheme guidance, medical terms, health alerts, unknown, and emergency override through red flags. | Add general education refinements and broader multilingual cases. |
+| 89 | 7 AI | Tool layer | `[~] In Progress` | Local fact tools return structured cards/actions/sources for doctors, facilities, services, visiting sessions, open-now schedule status, lab tests, procedures, medical terms, schemes, health alerts, and emergency actions before optional model explanation. | Add richer card payloads and broader content retrieval. |
 | 90 | 7 AI | Emergency red-flag engine | `[x] Complete` | Deterministic English/Marathi red flags before normal answer, with tests. | Clinician-reviewed rule set and versioned config. |
 | 91 | 7 AI | Emergency response | `[x] Complete` | E0 response returns call action for 108 and emergency card. | Nearest verified emergency facility when user grants location. |
 | 92 | 7 AI | Triage levels | `[~] In Progress` | E0 implemented. | E1/E2/E3 triage workflow and disclaimers. |
-| 93 | 7 AI | Retrieval and grounding | `[~] In Progress` | Lipid profile answer is grounded in reviewed demo content. | Retrieval index and source-bound generation. |
+| 93 | 7 AI | Retrieval and grounding | `[~] In Progress` | Doctor, visiting, open-now, scheme, and lipid-profile answers are grounded in local verified/demo or reviewed content; optional LLM explanation receives only verified context. | Retrieval index and source-bound generation for larger content corpus. |
 | 94 | 7 AI | Unknown handling | `[x] Complete` | Unknown facts return a safe "no verified information" answer with next action. | Add localized unknown responses. |
 | 95 | 7 AI | Chat UI | `[~] In Progress` | Ask Arogya page with chips, composer, answer panel, actions, sources. | Mobile-safe full conversation design and rich card rendering. |
-| 96 | 7 AI | Prompt injection resistance | `[ ] Not Started` | Policy documented in AI safety. | Add input/output safety checks and evals. |
-| 97 | 7 AI | AI evaluation suite | `[ ] Not Started` | None. | Build tests for grounding, refusal, emergency, provider disabled, provider failures. |
-| 98 | 8 PWA | PWA manifest | `[ ] Not Started` | None. | Add manifest, icons, install metadata. |
-| 99 | 8 PWA | Service worker/offline shell | `[ ] Not Started` | None. | Cache app shell, emergency page, static translations, safe emergency numbers. |
-| 100 | 8 PWA | Offline emergency | `[ ] Not Started` | Static emergency route exists. | Make it available offline with last verified cache label. |
-| 101 | 8 PWA | Offline indicator | `[ ] Not Started` | None. | Add network state banner. |
+| 96 | 7 AI | Prompt injection resistance | `[~] In Progress` | Prompt-injection detector skips optional provider generation for common instruction override attempts; tests cover this path. | Expand multilingual/adversarial prompt-injection corpus. |
+| 97 | 7 AI | AI evaluation suite | `[~] In Progress` | Tests cover red flags, provider disabled behavior, provider selection, grounded lipid-profile response, doctor/facility/service/visiting/open-now/scheme/procedure/medical-term/health-alert intents, cancelled session hiding, prompt injection, unsafe medical output, unsourced local fact blocking, provider timeout, and provider transport failure. | Add broader multilingual hallucination-resistance tests. |
+| 98 | 8 PWA | PWA manifest | `[x] Complete` | `app/manifest.ts` generates install metadata and references a local maskable SVG icon. | Add larger raster icons later if store-quality installation is needed. |
+| 99 | 8 PWA | Service worker/offline shell | `[~] In Progress` | `/sw.js` caches only offline-safe URLs: `/`, `/emergency`, manifest, icon, and static emergency JSON. | Add robust service-worker version tests and cache invalidation monitoring. |
+| 100 | 8 PWA | Offline emergency | `[~] In Progress` | Static emergency route and `emergency-offline.json` are cached with a last-review label. | Verify in browser offline mode with Playwright or manual PWA test. |
+| 101 | 8 PWA | Offline indicator | `[x] Complete` | `PwaClient` registers the service worker and displays an offline banner from browser network state. | Add visual E2E coverage. |
 | 102 | 8 PWA | Availability caching | `[ ] Not Started` | None. | Avoid stale availability confidence; cache only with short TTL and warnings. |
 | 103 | 8 PWA | Install prompt | `[ ] Not Started` | None. | Show after meaningful engagement only. |
 | 104 | 8 PWA | Reminder architecture | `[ ] Not Started` | Feature hidden, no dead reminder button exposed. | Implement subscription model or keep hidden. |
 | 105 | 9 Hardening | Security review | `[ ] Not Started` | Security doc exists. | CSRF, CORS hardening, rate limits, auth, IDOR tests, secret scan. |
 | 106 | 9 Hardening | Authorization audit | `[ ] Not Started` | None. | Backend RBAC audit after admin APIs exist. |
 | 107 | 9 Hardening | Privacy audit | `[~] In Progress` | Public phone consent protection and no public user accounts. | Chat retention/location policy enforcement. |
-| 108 | 9 Hardening | Rate limiting | `[ ] Not Started` | Redis available. | Login/chat/report/API rate limits. |
+| 108 | 9 Hardening | Rate limiting | `[~] In Progress` | Admin login lockout/backoff is implemented in the auth service and tested. | Move counters to Redis and add chat/report/API rate limits. |
 | 109 | 9 Hardening | Accessibility audit | `[~] In Progress` | Basic semantic/focus/accessibility foundations. | Manual keyboard pass, screen reader review, contrast audit, reduced motion. |
 | 110 | 9 Hardening | Performance audit | `[~] In Progress` | Production build works, small route sizes. | Lighthouse, slow-network QA, lazy map loading. |
 | 111 | 9 Hardening | SEO audit | `[~] In Progress` | Metadata, sitemap, robots. | Structured data and localized metadata. |
 | 112 | 9 Hardening | Browser/responsive testing | `[ ] Not Started` | Playwright config exists. | Run and fix 390x844, 768x1024, 1440x900 screenshots. |
-| 113 | 9 Hardening | Dependency audit | `[~] In Progress` | Vulnerability issue identified. | Run `npm audit`, update packages safely, document remaining risk. |
+| 113 | 9 Hardening | Dependency audit | `[x] Complete` | Upgraded `next` to 16.3.4, `vitest` to 4.1.11, added `@tailwindcss/postcss`, and verified `npm audit --audit-level=moderate` reports 0 vulnerabilities. | Keep audit clean after future dependency changes. |
 | 114 | 9 Hardening | Production build | `[x] Complete` | `npm run build` passed. | Keep passing after future changes. |
-| 115 | 10 Final | Full route inventory | `[~] In Progress` | Route inventory documented and 38 routes built. | Automated crawl must run against live app/API. |
+| 115 | 10 Final | Full route inventory | `[~] In Progress` | Route inventory documented and 41 routes built after adding PWA manifest and Next admin auth proxy routes. | Automated crawl must run against live app/API. |
 | 116 | 10 Final | Interaction audit | `[~] In Progress` | `FEATURE_AUDIT.md` created with key controls. | Verify every visible CTA in Playwright and update table. |
 | 117 | 10 Final | API audit | `[~] In Progress` | Main public endpoints exist. | Ensure every required endpoint has validation, pagination, auth docs, tests. |
 | 118 | 10 Final | Console/network audit | `[ ] Not Started` | Playwright route-audit spec exists. | Run with API and web, fix console errors/network failures. |
@@ -167,27 +167,27 @@ Ask Arogya must not be hard-coded to OpenAI only. The production AI layer should
 
 | No. | AI Provider Task | Status | Requirement |
 |---:|---|---|---|
-| 125 | Provider interface | `[ ] Not Started` | Create a common `AIProvider` interface with `generate`, timeout, retry, streaming support where needed, and structured error handling. |
-| 126 | OpenAI provider | `[ ] Not Started` | Support OpenAI through environment configuration without making it the only path. |
-| 127 | Azure OpenAI provider | `[ ] Not Started` | Support Azure endpoint, deployment name, API version, and key configuration. |
-| 128 | Ollama/local provider | `[ ] Not Started` | Support local Ollama base URL and model name for offline/dev deployments. |
-| 129 | Disabled provider | `[~] In Progress` | `LLM_PROVIDER=disabled` exists; Ask Arogya still handles emergency and grounded demo content without LLM. |
-| 130 | Provider safety wrapper | `[ ] Not Started` | Red flags, local fact retrieval, source grounding, and post-checks must run regardless of provider. |
-| 131 | Provider tests | `[ ] Not Started` | Add tests for provider disabled, provider timeout, provider bad output, fallback, and no hallucinated local facts. |
+| 125 | Provider interface | `[x] Complete` | Common provider protocol with `generate` request/response types and structured fallback behavior. |
+| 126 | OpenAI provider | `[x] Complete` | OpenAI provider supports API key and model configuration. |
+| 127 | Azure OpenAI provider | `[x] Complete` | Azure OpenAI provider supports endpoint, deployment, API version, and key configuration. |
+| 128 | Ollama/local provider | `[x] Complete` | Ollama provider supports base URL and model name configuration. |
+| 129 | Disabled provider | `[x] Complete` | `LLM_PROVIDER=disabled` is default; Ask Arogya handles emergency and grounded demo content without LLM. |
+| 130 | Provider safety wrapper | `[~] In Progress` | Red flags and local content grounding run before optional provider generation; model output post-check blocks unsafe medical advice and unsourced local facts; provider timeout/transport failures return safe fallback metadata. | Add multilingual safety checks. |
+| 131 | Provider tests | `[~] In Progress` | Tests cover disabled fallback, provider selection for OpenAI/Azure/Ollama, prompt injection, bad output, hallucination-style local fact blocking, timeout, and provider transport failure. | Add broader multilingual/adversarial provider tests. |
 
 ## Completion Summary
 
 | Category | Complete | In Progress | Not Started | Blocked |
 |---|---:|---:|---:|---:|
-| Foundation | 9 | 10 | 1 | 0 |
+| Foundation | 9 | 9 | 1 | 1 |
 | Healthcare data | 6 | 11 | 0 | 1 |
 | Public experience | 4 | 10 | 1 | 0 |
 | Availability | 5 | 5 | 0 | 0 |
 | Content modules | 0 | 7 | 1 | 0 |
-| Admin platform | 1 | 4 | 10 | 0 |
-| Ask Arogya AI | 3 | 6 | 8 | 0 |
-| PWA/offline | 0 | 0 | 7 | 0 |
-| Hardening | 1 | 5 | 6 | 0 |
+| Admin platform | 1 | 6 | 8 | 0 |
+| Ask Arogya AI | 5 | 8 | 4 | 0 |
+| PWA/offline | 2 | 2 | 3 | 0 |
+| Hardening | 2 | 5 | 5 | 0 |
 | Final audit/deployment | 0 | 6 | 4 | 0 |
 
 ## Current Exit Gate
