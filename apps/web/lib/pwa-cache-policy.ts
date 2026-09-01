@@ -1,4 +1,4 @@
-export const OFFLINE_SAFE_URLS = ["/", "/emergency", "/manifest.webmanifest", "/icon.svg", "/emergency-offline.json"] as const;
+export const OFFLINE_SAFE_URLS = ["/emergency", "/manifest.webmanifest", "/icon.svg", "/emergency-offline.json"] as const;
 
 export const NETWORK_ONLY_URL_PREFIXES = [
   "/api/v1/facilities/open-now",

@@ -16,4 +16,8 @@ describe("PWA cache policy", () => {
   it("does not treat open-now as offline-safe content", () => {
     expect(isOfflineSafeUrl("/open-now")).toBe(false);
   });
+
+  it("does not pre-cache backend-backed landing content", () => {
+    expect(isOfflineSafeUrl("/")).toBe(false);
+  });
 });

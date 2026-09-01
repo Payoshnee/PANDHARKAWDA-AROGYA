@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
-  webServer: { command: "npm run dev -- --port 3010", url: "http://127.0.0.1:3010", reuseExistingServer: true },
+  webServer: { command: "npm run dev -- --port 3010", url: "http://127.0.0.1:3010/emergency", reuseExistingServer: true },
   use: {
     baseURL: "http://127.0.0.1:3010",
     serviceWorkers: "allow"

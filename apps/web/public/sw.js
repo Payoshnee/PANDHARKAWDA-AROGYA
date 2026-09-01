@@ -1,5 +1,5 @@
 const CACHE_NAME = "pandharkawda-arogya-emergency-v1";
-const OFFLINE_SAFE_URLS = ["/", "/emergency", "/manifest.webmanifest", "/icon.svg", "/emergency-offline.json"];
+const OFFLINE_SAFE_URLS = ["/emergency", "/manifest.webmanifest", "/icon.svg", "/emergency-offline.json"];
 const NETWORK_ONLY_URL_PREFIXES = [
   "/api/v1/facilities/open-now",
   "/api/v1/search",
