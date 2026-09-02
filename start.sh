@@ -6,7 +6,7 @@ RUN_DIR="$ROOT_DIR/.run"
 LOG_DIR="$RUN_DIR/logs"
 API_PORT="${API_PORT:-8000}"
 WEB_PORT="${WEB_PORT:-3000}"
-API_BASE_URL="${NEXT_PUBLIC_API_BASE_URL:-http://localhost:${API_PORT}}"
+API_BASE_URL="${VITE_API_BASE_URL:-${NEXT_PUBLIC_API_BASE_URL:-http://localhost:${API_PORT}}}"
 LLM_PROVIDER="${LLM_PROVIDER:-ollama}"
 OLLAMA_BASE_URL="${OLLAMA_BASE_URL:-http://localhost:11434}"
 OLLAMA_MODEL="${OLLAMA_MODEL:-llama3:8b}"
@@ -88,7 +88,7 @@ fi
 
 start_terminal_service "api" "Arogya API" "cd apps/api; LLM_PROVIDER=$(shell_escape "$LLM_PROVIDER") OLLAMA_BASE_URL=$(shell_escape "$OLLAMA_BASE_URL") OLLAMA_MODEL=$(shell_escape "$OLLAMA_MODEL") python3 -m uvicorn app.main:app --reload --host 0.0.0.0 --port $(shell_escape "$API_PORT")"
 
-start_terminal_service "web" "Arogya Web" "NEXT_PUBLIC_API_BASE_URL=$(shell_escape "$API_BASE_URL") npm --workspace apps/web run dev -- --port $(shell_escape "$WEB_PORT")"
+start_terminal_service "web" "Arogya Web" "VITE_API_BASE_URL=$(shell_escape "$API_BASE_URL") npm --workspace apps/web run dev -- --port $(shell_escape "$WEB_PORT")"
 
 cat <<EOF
 
