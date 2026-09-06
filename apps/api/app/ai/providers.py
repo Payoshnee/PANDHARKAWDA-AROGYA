@@ -95,14 +95,16 @@ class AzureOpenAIProvider:
 class OllamaProvider:
     name = "ollama"
 
-    def __init__(self, base_url: str, model: str) -> None:
+    def __init__(self, base_url: str, model: str, api_key: str | None = None) -> None:
         self.base_url = base_url.rstrip("/")
         self.model = model
+        self.api_key = api_key
 
     async def generate(self, request: AIProviderRequest) -> AIProviderResponse:
         async with httpx.AsyncClient(timeout=30) as client:
             response = await client.post(
                 f"{self.base_url}/api/chat",
+                headers={"authorization": f"Bearer {self.api_key}"} if self.api_key else {},
                 json={
                     "model": self.model,
                     "stream": False,
@@ -130,5 +132,5 @@ def build_ai_provider(config: Settings = settings) -> AIProvider:
             config.azure_openai_api_version
         )
     if provider == "ollama":
-        return OllamaProvider(config.ollama_base_url, config.ollama_model)
+        return OllamaProvider(config.ollama_base_url, config.ollama_model, config.ollama_api_key)
     return DisabledProvider()

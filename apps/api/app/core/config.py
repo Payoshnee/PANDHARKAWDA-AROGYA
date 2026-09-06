@@ -20,6 +20,7 @@ class Settings(BaseModel):
     azure_openai_api_version: str = os.getenv("AZURE_OPENAI_API_VERSION", "2024-10-21")
     ollama_base_url: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
     ollama_model: str = os.getenv("OLLAMA_MODEL", "llama3.1")
+    ollama_api_key: str | None = os.getenv("OLLAMA_API_KEY")
 
 
 settings = Settings()

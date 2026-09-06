@@ -213,7 +213,9 @@ Hosted API:
 
 ```bash
 LLM_PROVIDER=ollama
-OLLAMA_BASE_URL=https://your-private-ollama-host.example.com
+OLLAMA_BASE_URL=https://payoshneejoshi-dyslexialearn.hf.space
+OLLAMA_MODEL=qwen2.5vl:3b
+OLLAMA_API_KEY=your-dybrain-project-token
 OLLAMA_MODEL=llama3:8b
 ```
 
