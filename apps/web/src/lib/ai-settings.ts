@@ -13,11 +13,11 @@ export type AiSettings = {
 export const AI_SETTINGS_STORAGE_KEY = "arogya_ai_settings"
 
 export const DEFAULT_AI_SETTINGS: AiSettings = {
-  provider: "arogya_ai",
+  provider: "dybrain",
   mode: "managed",
-  serverUrl: "",
+  serverUrl: "https://payoshneejoshi-dyslexialearn.hf.space",
   modelName: "qwen2.5vl:3b",
-  apiKey: "",
+  apiKey: "3535b227b065b6fff6e5b8f6cdc8f25d8ec2061ee454850ca1ed13fd6792415d",
   azureDeployment: "",
   azureApiVersion: "2024-10-21",
 }

@@ -16,7 +16,7 @@ import {
 import type { Doctor, Facility, HealthAlert, LabTest, Procedure, Scheme, Specialty, VisitingSession } from "@/types"
 import { getSavedAiSettings } from "@/lib/ai-settings"
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ""
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://pandharkawda-arogya.onrender.com"
 
 type ApiList<T> = { data: T[] }
 
@@ -279,7 +279,7 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
     return response.json() as Promise<T>
   } catch (error) {
     if (error instanceof TypeError) {
-      throw new Error("Cannot reach backend API through the web server. Restart the frontend so the Vite /api proxy is active, and confirm the API is on http://localhost:8000.")
+      throw new Error(`Cannot reach backend API at ${API_BASE_URL || "the local web proxy"}. Check the backend URL and CORS settings.`)
     }
     throw error
   }

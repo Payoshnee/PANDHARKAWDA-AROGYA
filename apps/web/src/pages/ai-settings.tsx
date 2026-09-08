@@ -136,9 +136,9 @@ export function AiSettingsPage() {
   }
 
   const handleReset = () => {
-    saveAiSettings(DEFAULT_AI_SETTINGS)
     setSettings(DEFAULT_AI_SETTINGS)
     setSaved(false)
+    saveAiSettings(DEFAULT_AI_SETTINGS)
   }
 
   const applyHuggingFaceOllama = () => {
