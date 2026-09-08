@@ -66,8 +66,11 @@ export function getVisitingDateGroup(visitDate: string): "today" | "thisWeek" | 
 }
 
 export function getMapsUrl(lat: number | null, lng: number | null, address: string): string {
-  if (lat && lng) return `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=18/${lat}/${lng}`
-  return `https://www.openstreetmap.org/search?query=${encodeURIComponent(address)}`
+  void lat
+  void lng
+  void address
+  const query = "Pandharkawda Civil Hospital, Pandharkawda"
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
 }
 
 export function getTelUrl(phone: string): string {

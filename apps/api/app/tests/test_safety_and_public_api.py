@@ -7,6 +7,7 @@ from app.domain.models import ScheduleBlock
 from app.domain.red_flags import has_red_flag
 from app.domain.schedule import doctor_available_now, facility_open_now
 from app.main import app
+from app.ai.providers import AIProviderResponse
 
 
 client = TestClient(app)
@@ -50,12 +51,88 @@ def test_chat_works_with_llm_disabled_and_grounded_content():
     assert body["sources"][0]["type"] == "reviewed_content"
 
 
+def test_chat_greeting_behaves_like_reception():
+    response = client.post("/api/v1/chat", json={"message": "hi", "language": "en"})
+    body = response.json()
+    assert body["intent"] == "RECEPTION"
+    assert "reception desk" in body["message"]
+    assert body["actions"][0]["value"] == "/doctors"
+
+
+def test_chat_not_well_asks_symptom_and_suggests_doctors():
+    response = client.post("/api/v1/chat", json={"message": "i am not feeling well", "language": "en"})
+    body = response.json()
+    assert body["intent"] == "RECEPTION"
+    assert "main symptom" in body["message"]
+    assert body["cards"][0]["type"] == "doctor"
+    assert body["cards"][0]["data"]["name_en"].startswith("Dr.")
+
+
+def test_chat_tests_available_returns_lab_test_cards():
+    response = client.post("/api/v1/chat", json={"message": "what tests are available", "language": "en"})
+    body = response.json()
+    assert body["intent"] == "TEST_PREPARATION"
+    assert body["cards"][0]["type"] == "test"
+    assert "Urine Routine" in body["message"]
+
+
 def test_chat_find_doctor_intent_returns_doctor_card():
     response = client.post("/api/v1/chat", json={"message": "Cardiology doctor available?", "language": "en"})
     body = response.json()
     assert body["intent"] == "FIND_DOCTOR"
     assert body["cards"][0]["type"] == "doctor"
     assert body["sources"][0]["type"] == "local_database"
+
+
+def test_chat_names_only_verified_imported_doctors():
+    response = client.post("/api/v1/chat", json={"message": "name some doctor", "language": "en"})
+    body = response.json()
+    assert body["intent"] == "FIND_DOCTOR"
+    assert "Dr. Atram Rajendra" in body["message"]
+    assert "Dr. Smith" not in body["message"]
+    assert body["cards"][0]["data"]["name_en"].startswith("Dr.")
+
+
+def test_chat_symptom_suggests_verified_doctors_without_diagnosis():
+    response = client.post("/api/v1/chat", json={"message": "I have fever", "language": "en"})
+    body = response.json()
+    assert body["intent"] == "FIND_DOCTOR"
+    assert body["cards"][0]["type"] == "doctor"
+    assert "not a diagnosis" in body["message"].lower()
+
+
+def test_chat_burn_gets_safety_context_and_doctors():
+    response = client.post("/api/v1/chat", json={"message": "i am having burn skin", "language": "en"})
+    body = response.json()
+    assert body["intent"] == "FIND_DOCTOR"
+    assert "burn" in body["message"].lower()
+    assert "108" in body["message"]
+    assert body["cards"][0]["type"] == "doctor"
+
+
+def test_chat_fracture_gets_injury_context_and_doctors():
+    response = client.post("/api/v1/chat", json={"message": "i got a fracture", "language": "en"})
+    body = response.json()
+    assert body["intent"] == "FIND_DOCTOR"
+    assert "fracture" in body["message"].lower()
+    assert "108" in body["message"]
+    assert body["cards"][0]["type"] == "doctor"
+
+
+def test_llm_cannot_invent_doctor_names(monkeypatch):
+    class FakeProvider:
+        name = "ollama"
+
+        async def generate(self, _request):
+            return AIProviderResponse(text="Oh no. Please meet Dr. Smith today.", provider="ollama", model="fake")
+
+    monkeypatch.setattr("app.main.provider_from_chat_settings", lambda _settings: FakeProvider())
+    response = client.post("/api/v1/chat", json={"message": "name some doctor", "language": "en", "ai_settings": {"provider": "ollama"}})
+    body = response.json()
+    assert "Dr. Smith" not in body["message"]
+    assert "AI provider is selected" in body["message"]
+    assert body["verification"]["grounded"] is False
+    assert body["verification"]["llm_blocked_reason"].startswith("UNVERIFIED_LOCAL_FACT")
 
 
 def test_chat_visiting_specialist_intent_hides_cancelled_sessions():
@@ -124,7 +201,7 @@ def test_unverified_doctor_hidden():
 
 
 def test_phone_hidden_without_consent():
-    response = client.get("/api/v1/doctors/demo-dr-meera-kulkarni")
+    response = client.get("/api/v1/doctors/dr-chavhan-minal")
     assert response.json()["data"]["phone_public"] is None
 
 

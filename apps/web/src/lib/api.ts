@@ -14,8 +14,9 @@ import {
   DEMO_VISITING_SESSIONS,
 } from "@/lib/mock-data"
 import type { Doctor, Facility, HealthAlert, LabTest, Procedure, Scheme, Specialty, VisitingSession } from "@/types"
+import { getSavedAiSettings } from "@/lib/ai-settings"
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ""
 
 type ApiList<T> = { data: T[] }
 
@@ -237,18 +238,51 @@ export function usePublicData() {
 }
 
 export async function askArogya(message: string, language: string) {
-  return apiPost<{ message: string; cards?: Array<{ type: string; data: unknown }> }>("/api/v1/chat", { message, language })
+  return apiPost<{
+    message: string
+    cards?: Array<{ type: string; data: unknown }>
+    verification?: {
+      grounded?: boolean
+      llm_provider?: string
+      llm_model?: string
+      llm_used?: boolean
+      llm_error?: string
+      llm_blocked_reason?: string
+    }
+  }>("/api/v1/chat", { message, language, ai_settings: getSavedAiSettings() })
+}
+
+export async function testAiConnection(language: string) {
+  return apiPost<{
+    data: {
+      ok: boolean
+      provider: string
+      model: string | null
+      message: string
+    }
+  }>("/api/v1/ai/test-connection", {
+    message: "Reply with only: connected",
+    language,
+    ai_settings: getSavedAiSettings(),
+  })
 }
 
 export async function apiPost<T>(path: string, body: unknown): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    method: "POST",
-    credentials: "include",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(body),
-  })
-  if (!response.ok) throw new Error(`API ${response.status}`)
-  return response.json() as Promise<T>
+  try {
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(body),
+    })
+    if (!response.ok) throw new Error(`API ${response.status}`)
+    return response.json() as Promise<T>
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error("Cannot reach backend API through the web server. Restart the frontend so the Vite /api proxy is active, and confirm the API is on http://localhost:8000.")
+    }
+    throw error
+  }
 }
 
 export function adminLogin(email: string, password: string) {

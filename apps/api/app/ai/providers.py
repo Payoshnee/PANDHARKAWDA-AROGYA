@@ -101,13 +101,17 @@ class OllamaProvider:
         self.api_key = api_key
 
     async def generate(self, request: AIProviderRequest) -> AIProviderResponse:
-        async with httpx.AsyncClient(timeout=30) as client:
+        async with httpx.AsyncClient(timeout=90) as client:
             response = await client.post(
                 f"{self.base_url}/api/chat",
                 headers={"authorization": f"Bearer {self.api_key}"} if self.api_key else {},
                 json={
                     "model": self.model,
                     "stream": False,
+                    "options": {
+                        "temperature": 0.2,
+                        "num_predict": 180,
+                    },
                     "messages": [
                         {"role": "system", "content": request.system},
                         {"role": "user", "content": request.user}
@@ -120,8 +124,41 @@ class OllamaProvider:
             return AIProviderResponse(text=text, provider=self.name, model=self.model)
 
 
+class DyBrainProvider:
+    name = "dybrain"
+
+    def __init__(self, api_url: str, api_key: str | None, model: str) -> None:
+        self.api_url = api_url.rstrip("/")
+        self.api_key = api_key
+        self.model = model
+
+    async def generate(self, request: AIProviderRequest) -> AIProviderResponse:
+        prompt = f"{request.system}\n\nUser:\n{request.user}\n\nAssistant:"
+        headers = {"authorization": f"Bearer {self.api_key}"} if self.api_key else {}
+        async with httpx.AsyncClient(timeout=90) as client:
+            response = await client.post(
+                f"{self.api_url}/api/generate",
+                headers=headers,
+                json={
+                    "model": self.model,
+                    "prompt": prompt,
+                    "stream": False,
+                    "options": {
+                        "temperature": 0.2,
+                        "num_predict": 180,
+                    },
+                },
+            )
+            response.raise_for_status()
+            body = response.json()
+            text = body.get("response", "")
+            return AIProviderResponse(text=text, provider=self.name, model=self.model)
+
+
 def build_ai_provider(config: Settings = settings) -> AIProvider:
     provider = config.llm_provider.lower()
+    if provider == "dybrain":
+        return DyBrainProvider(config.dybrain_api_url, config.dybrain_api_key, config.dybrain_model)
     if provider == "openai" and config.openai_api_key:
         return OpenAIProvider(config.openai_api_key, config.openai_model)
     if provider == "azure_openai" and config.azure_openai_api_key and config.azure_openai_endpoint and config.azure_openai_deployment:

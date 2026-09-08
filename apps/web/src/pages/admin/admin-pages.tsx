@@ -448,8 +448,8 @@ export function AdminSettingsPage() {
             <p className="text-xs text-muted-foreground mt-1">14 {lang === "mr" ? "दिवस" : "days"}</p>
           </div>
           <div className="border-t border-border pt-4">
-            <p className="text-sm font-medium text-foreground">{lang === "mr" ? "डेमो मोड" : "Demo Mode"}</p>
-            <p className="text-xs text-muted-foreground mt-1">{t("common.demoData", lang)}</p>
+            <p className="text-sm font-medium text-foreground">{lang === "mr" ? "स्थानिक मोड" : "Local Mode"}</p>
+            <p className="text-xs text-muted-foreground mt-1">{lang === "mr" ? "डेटा पडताळणी सुरू आहे." : "Data verification is in progress."}</p>
           </div>
         </CardContent>
       </Card>
@@ -520,7 +520,6 @@ export function AdminLoginPage() {
               {lang === "mr" ? "लॉगिन" : "Login"}
             </Button>
           </div>
-          <p className="text-center text-xs text-muted-foreground">{t("common.demoData", lang)}</p>
         </CardContent>
       </Card>
     </div>

@@ -195,8 +195,3 @@
   from { height: var(--radix-accordion-content-height); }
   to { height: 0; }
 }
-
-.leaflet-container {
-  font: inherit;
-  z-index: 0;
-}

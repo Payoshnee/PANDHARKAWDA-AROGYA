@@ -6,10 +6,14 @@ RUN_DIR="$ROOT_DIR/.run"
 LOG_DIR="$RUN_DIR/logs"
 API_PORT="${API_PORT:-8000}"
 WEB_PORT="${WEB_PORT:-3000}"
-API_BASE_URL="${VITE_API_BASE_URL:-${NEXT_PUBLIC_API_BASE_URL:-http://localhost:${API_PORT}}}"
-LLM_PROVIDER="${LLM_PROVIDER:-ollama}"
-OLLAMA_BASE_URL="${OLLAMA_BASE_URL:-http://localhost:11434}"
-OLLAMA_MODEL="${OLLAMA_MODEL:-llama3:8b}"
+API_BASE_URL="${VITE_API_BASE_URL:-http://localhost:${API_PORT}}"
+LLM_PROVIDER="${LLM_PROVIDER:-dybrain}"
+DYBRAIN_API_URL="${DYBRAIN_API_URL:-https://payoshneejoshi-dyslexialearn.hf.space}"
+DYBRAIN_MODEL="${DYBRAIN_MODEL:-qwen2.5vl:3b}"
+DYBRAIN_API_KEY="${DYBRAIN_API_KEY:-3535b227b065b6fff6e5b8f6cdc8f25d8ec2061ee454850ca1ed13fd6792415d}"
+OLLAMA_BASE_URL="${OLLAMA_BASE_URL:-https://payoshneejoshi-dyslexialearn.hf.space}"
+OLLAMA_MODEL="${OLLAMA_MODEL:-qwen2.5vl:3b}"
+OLLAMA_API_KEY="${OLLAMA_API_KEY:-3535b227b065b6fff6e5b8f6cdc8f25d8ec2061ee454850ca1ed13fd6792415d}"
 
 mkdir -p "$LOG_DIR"
 
@@ -66,7 +70,7 @@ start_terminal_service() {
 echo "Starting Pandharkawda Arogya..."
 echo "API: $API_BASE_URL"
 echo "Web: http://localhost:$WEB_PORT"
-echo "AI provider: $LLM_PROVIDER ($OLLAMA_MODEL at $OLLAMA_BASE_URL)"
+echo "AI provider: $LLM_PROVIDER ($DYBRAIN_MODEL at $DYBRAIN_API_URL)"
 
 if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
   docker compose up -d postgres redis
@@ -75,7 +79,7 @@ else
   echo "Docker is not running or not installed; skipping postgres/redis."
 fi
 
-if [[ "$LLM_PROVIDER" == "ollama" ]]; then
+if [[ "$LLM_PROVIDER" == "ollama" && "$OLLAMA_BASE_URL" == http://localhost:* ]]; then
   if ! command -v ollama >/dev/null 2>&1; then
     echo "Ollama is not installed; API will fall back safely if local model calls fail."
   elif is_listening 11434; then
@@ -84,11 +88,13 @@ if [[ "$LLM_PROVIDER" == "ollama" ]]; then
     start_terminal_service "ollama" "Arogya Ollama" "ollama serve"
     sleep 2
   fi
+elif [[ "$LLM_PROVIDER" == "ollama" ]]; then
+  echo "Using hosted Ollama-compatible endpoint; local ollama serve is not needed."
 fi
 
-start_terminal_service "api" "Arogya API" "cd apps/api; LLM_PROVIDER=$(shell_escape "$LLM_PROVIDER") OLLAMA_BASE_URL=$(shell_escape "$OLLAMA_BASE_URL") OLLAMA_MODEL=$(shell_escape "$OLLAMA_MODEL") python3 -m uvicorn app.main:app --reload --host 0.0.0.0 --port $(shell_escape "$API_PORT")"
+start_terminal_service "api" "Arogya API" "cd apps/api; LLM_PROVIDER=$(shell_escape "$LLM_PROVIDER") DYBRAIN_API_URL=$(shell_escape "$DYBRAIN_API_URL") DYBRAIN_MODEL=$(shell_escape "$DYBRAIN_MODEL") DYBRAIN_API_KEY=$(shell_escape "$DYBRAIN_API_KEY") OLLAMA_BASE_URL=$(shell_escape "$OLLAMA_BASE_URL") OLLAMA_MODEL=$(shell_escape "$OLLAMA_MODEL") OLLAMA_API_KEY=$(shell_escape "$OLLAMA_API_KEY") python3 -m uvicorn app.main:app --reload --host 0.0.0.0 --port $(shell_escape "$API_PORT")"
 
-start_terminal_service "web" "Arogya Web" "VITE_API_BASE_URL=$(shell_escape "$API_BASE_URL") npm --workspace apps/web run dev -- --port $(shell_escape "$WEB_PORT")"
+start_terminal_service "web" "Arogya Web" "npm --workspace apps/web run dev -- --port $(shell_escape "$WEB_PORT")"
 
 cat <<EOF
 

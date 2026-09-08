@@ -11,8 +11,9 @@ from pydantic import BaseModel
 from app.auth.dependencies import require_admin, require_permission
 from app.auth.service import AdminUser, auth_service
 from app.ai.intents import ChatIntent, classify_intent
-from app.ai.orchestrator import optional_llm_explanation
-from app.ai.tools import doctor_cards, facility_cards, health_alert_cards, medical_term_cards, open_now_cards, procedure_cards, scheme_cards, service_cards, test_preparation_cards, visiting_cards
+from app.ai.orchestrator import plan_reception_turn, write_grounded_reception_answer
+from app.ai.providers import AIProviderRequest, AzureOpenAIProvider, DisabledProvider, DyBrainProvider, OllamaProvider, OpenAIProvider, build_ai_provider
+from app.ai.tools import database_catalog, doctor_cards, facility_cards, full_verified_context, health_alert_cards, medical_term_cards, open_now_cards, procedure_cards, reception_cards, scheme_cards, service_cards, test_preparation_cards, verified_context_from_cards, visiting_cards
 from app.core.config import settings
 from app.core.errors import ApiError
 from app.core.middleware import RequestContextMiddleware
@@ -43,6 +44,7 @@ async def validation_error_handler(_request: Request, exc: RequestValidationErro
 class ChatRequest(BaseModel):
     message: str
     language: str = "en"
+    ai_settings: dict | None = None
 
 
 class VerificationDecisionRequest(BaseModel):
@@ -53,6 +55,48 @@ class VerificationDecisionRequest(BaseModel):
 class AdminLoginRequest(BaseModel):
     email: str
     password: str
+
+
+def provider_from_chat_settings(ai_settings: dict | None):
+    if not ai_settings:
+        return None
+    provider = str(ai_settings.get("provider", "arogya_ai")).lower()
+    server_url = str(ai_settings.get("serverUrl") or "").strip()
+    model_name = str(ai_settings.get("modelName") or "").strip()
+    api_key = str(ai_settings.get("apiKey") or "").strip() or None
+    azure_deployment = str(ai_settings.get("azureDeployment") or "").strip()
+    azure_api_version = str(ai_settings.get("azureApiVersion") or "2024-10-21").strip()
+
+    if provider == "arogya_ai":
+        return build_ai_provider()
+    if provider == "dybrain" and model_name:
+        return DyBrainProvider(server_url or settings.dybrain_api_url, api_key or settings.dybrain_api_key, model_name)
+    if provider == "openai" and api_key and model_name:
+        return OpenAIProvider(api_key, model_name)
+    if provider == "azure_openai" and api_key and server_url and azure_deployment:
+        return AzureOpenAIProvider(api_key, server_url, azure_deployment, azure_api_version)
+    if provider in {"ollama", "lm_studio", "custom"} and server_url and model_name:
+        return OllamaProvider(server_url, model_name, api_key)
+    return DisabledProvider()
+
+
+@app.post("/api/v1/ai/test-connection")
+async def test_ai_connection(payload: ChatRequest) -> dict:
+    provider = provider_from_chat_settings(payload.ai_settings)
+    if isinstance(provider, DisabledProvider):
+        return {"data": {"ok": False, "provider": "disabled", "model": None, "message": "Provider settings are incomplete."}}
+
+    try:
+        response = await provider.generate(
+            AIProviderRequest(
+                system="You are a connection test. Reply with only: connected",
+                user="Reply with only: connected",
+                language=payload.language,
+            )
+        )
+        return {"data": {"ok": True, "provider": response.provider, "model": response.model, "message": response.text[:200] or "Connected."}}
+    except Exception as exc:
+        return {"data": {"ok": False, "provider": getattr(provider, "name", "unknown"), "model": None, "message": str(exc)[:300] or "Connection failed."}}
 
 
 @app.get("/health")
@@ -242,9 +286,70 @@ def health_alerts() -> dict:
 async def chat(payload: ChatRequest) -> dict:
     if has_red_flag(payload.message):
         return {"message": "Call 108 now. Ask someone nearby for help and go to the nearest emergency facility.", "language": payload.language, "triage_level": "E0", "sources": [{"type": "rule", "name": "red_flag_rules_v1"}], "cards": [{"type": "emergency", "data": {"number": "108"}}], "actions": [{"type": "call", "label": "Call 108", "value": "108"}], "verification": {"grounded": True}}
-    intent = classify_intent(payload.message)
-    if intent == ChatIntent.FIND_DOCTOR:
-        base_message, cards, actions, sources = doctor_cards(payload.message)
+    provider = provider_from_chat_settings(payload.ai_settings)
+    ai_requested = bool(payload.ai_settings and str(payload.ai_settings.get("provider", "arogya_ai")).lower() != "arogya_ai")
+    arogya_ai_requested = bool(payload.ai_settings and str(payload.ai_settings.get("provider", "arogya_ai")).lower() == "arogya_ai")
+    if ai_requested:
+        verified_context, allowed_local_names = full_verified_context()
+        answer = await write_grounded_reception_answer(
+            payload.message,
+            "Talk naturally like a healthcare receptionist. Use only verified local data for doctors, facilities, tests, timings, and phone numbers.",
+            verified_context,
+            allowed_local_names,
+            payload.language,
+            provider,
+        )
+        if answer.get("used"):
+            return {
+                "message": answer["text"],
+                "language": payload.language,
+                "intent": ChatIntent.RECEPTION,
+                "triage_level": None,
+                "sources": [{"type": "local_database", "name": "verified_directory"}],
+                "cards": [],
+                "actions": [{"type": "link", "label": "Search doctors", "value": "/doctors"}, {"type": "call", "label": "Emergency 108", "value": "108"}],
+                "verification": {
+                    "grounded": True,
+                    "llm_provider": answer.get("provider"),
+                    "llm_model": answer.get("model"),
+                    "llm_used": True,
+                    "llm_error": None,
+                    "llm_blocked_reason": None,
+                    "planner_used": False,
+                    "planner_error": None,
+                },
+            }
+        return {
+            "message": "AI provider is selected, but it is not answering right now. Please check the AI Settings connection. I am not going to pretend this was an AI answer.",
+            "language": payload.language,
+            "intent": ChatIntent.UNKNOWN,
+            "triage_level": None,
+            "sources": [],
+            "cards": [],
+            "actions": [{"type": "link", "label": "AI settings", "value": "/ai-settings"}],
+            "verification": {
+                "grounded": False,
+                "llm_provider": answer.get("provider") or getattr(provider, "name", "unknown"),
+                "llm_model": answer.get("model"),
+                "llm_used": False,
+                "llm_error": answer.get("error"),
+                "llm_blocked_reason": answer.get("blocked_reason"),
+                "planner_used": False,
+                "planner_error": None,
+            },
+        }
+
+    plan = {"used": False, "provider": getattr(provider, "name", "disabled")} if arogya_ai_requested else await plan_reception_turn(payload.message, database_catalog(), payload.language, provider)
+    planned_intent = plan.get("intent") if plan.get("used") else None
+    try:
+        intent = ChatIntent(planned_intent) if planned_intent else classify_intent(payload.message)
+    except ValueError:
+        intent = classify_intent(payload.message)
+    planner_reply = plan.get("reply") if isinstance(plan.get("reply"), str) and plan.get("reply") else None
+    if intent == ChatIntent.RECEPTION:
+        base_message, cards, actions, sources = reception_cards(payload.message, payload.language, planner_reply)
+    elif intent == ChatIntent.FIND_DOCTOR:
+        base_message, cards, actions, sources = doctor_cards(payload.message, str(plan.get("specialty") or ""), str(plan.get("symptom") or ""), planner_reply)
     elif intent == ChatIntent.VISITING_SPECIALIST:
         base_message, cards, actions, sources = visiting_cards()
     elif intent == ChatIntent.OPEN_NOW:
@@ -264,14 +369,32 @@ async def chat(payload: ChatRequest) -> dict:
     elif intent == ChatIntent.HEALTH_ALERT:
         base_message, cards, actions, sources = health_alert_cards(payload.language)
     else:
-        base_message = "I do not have verified information for that yet. Please call a verified facility or search the directory."
+        base_message = planner_reply or "I can help with doctors, open facilities, lab tests, schemes, and emergency guidance for Pandharkawda. Please tell me what health help you need."
         cards = []
         actions = [{"type": "link", "label": "Search doctors", "value": "/doctors"}]
         sources = []
 
-    llm = await optional_llm_explanation(payload.message, base_message, payload.language)
+    verified_context, allowed_local_names = verified_context_from_cards(cards)
+    answer = await write_grounded_reception_answer(
+        payload.message,
+        base_message,
+        verified_context,
+        allowed_local_names,
+        payload.language,
+        provider,
+    )
     fallback = "I do not have verified information for that yet. Please call a verified facility or search the directory."
-    return {"message": llm["text"] or base_message or fallback, "language": payload.language, "intent": intent, "triage_level": None, "sources": sources, "cards": cards, "actions": actions, "verification": {"grounded": True, "llm_provider": llm["provider"], "llm_used": llm["used"]}}
+    verification = {
+        "grounded": True,
+        "llm_provider": answer.get("provider") or plan.get("provider") or getattr(provider, "name", "disabled"),
+        "llm_model": answer.get("model") or plan.get("model"),
+        "llm_used": bool(answer.get("used")),
+        "llm_error": answer.get("error") or plan.get("error"),
+        "llm_blocked_reason": answer.get("blocked_reason"),
+        "planner_used": plan.get("used", False),
+        "planner_error": plan.get("error"),
+    }
+    return {"message": answer.get("text") or base_message or fallback, "language": payload.language, "intent": intent, "triage_level": None, "sources": sources, "cards": cards, "actions": actions, "verification": verification}
 
 
 @app.post("/api/v1/reports/incorrect-info")

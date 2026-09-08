@@ -295,9 +295,6 @@ export function HomePage() {
         </section>
       )}
 
-      <p className="text-center text-xs text-muted-foreground pt-4">
-        {t("common.demoData", lang)}
-      </p>
     </div>
   )
 }

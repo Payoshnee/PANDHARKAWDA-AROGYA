@@ -51,3 +51,16 @@ def check_model_output(output: str, has_sources: bool) -> SafetyCheckResult:
     if not has_sources and any(pattern.search(output) for pattern in LOCAL_FACT_PATTERNS):
         return SafetyCheckResult(allowed=False, reason="UNSOURCED_LOCAL_FACT")
     return SafetyCheckResult(allowed=True)
+
+
+def contains_unverified_local_fact(output: str, allowed_names: list[str]) -> str | None:
+    def normalize_name(name: str) -> str:
+        return re.sub(r"[^a-z0-9]+", " ", name.lower()).strip()
+
+    normalized_allowed = {normalize_name(name) for name in allowed_names}
+    doctor_mentions = set(re.findall(r"\bDr\.?\s+[A-Z][A-Za-z. ]{1,50}", output))
+    for mention in doctor_mentions:
+        cleaned = re.sub(r"\s+", " ", mention).strip().rstrip(".,:;")
+        if normalize_name(cleaned) not in normalized_allowed:
+            return cleaned
+    return None

@@ -174,7 +174,6 @@ const dict: Dict = {
   "common.error": { en: "Something went wrong", mr: "काहीतरी चूक झाली" },
   "common.retry": { en: "Try again", mr: "पुन्हा प्रयत्न करा" },
   "common.back": { en: "Back", mr: "मागे" },
-  "common.demoData": { en: "DEMO DATA", mr: "डेमो डेटा" },
   "common.notFound": { en: "Page not found", mr: "पृष्ठ सापडले नाही" },
   "common.offline": { en: "You're offline. Some live information may be unavailable.", mr: "तुम्ही ऑफलाइन आहात. काही थेट माहिती अनुपलब्ध असू शकते." },
 

@@ -1,0 +1,1122 @@
+export const OCR_DOCTORS = [
+  {
+    "name": "Dr. Atram Rajendra",
+    "slug": "dr-atram-rajendra",
+    "phone": "7588591599",
+    "phones": [
+      "7588591599"
+    ]
+  },
+  {
+    "name": "Dr. Bhong Dilip",
+    "slug": "dr-bhong-dilip",
+    "phone": "8975335481",
+    "phones": [
+      "8975335481"
+    ]
+  },
+  {
+    "name": "Dr. Bhoyar Anil",
+    "slug": "dr-bhoyar-anil",
+    "phone": "9890389303",
+    "phones": [
+      "9890389303"
+    ]
+  },
+  {
+    "name": "Dr. Bajoriya N. R.",
+    "slug": "dr-bajoriya-n-r",
+    "phone": "9325055266",
+    "phones": [
+      "9325055266"
+    ]
+  },
+  {
+    "name": "Dr. Chavhan A. B.",
+    "slug": "dr-chavhan-a-b",
+    "phone": "9421722638",
+    "phones": [
+      "9421722638"
+    ]
+  },
+  {
+    "name": "Dr. Chavhan Minal",
+    "slug": "dr-chavhan-minal",
+    "phone": null,
+    "phones": []
+  },
+  {
+    "name": "Dr. Chitnis V. D.",
+    "slug": "dr-chitnis-v-d",
+    "phone": "9422125009",
+    "phones": [
+      "9422125009"
+    ]
+  },
+  {
+    "name": "Dr. Chavardol",
+    "slug": "dr-chavardol",
+    "phone": "9011922658",
+    "phones": [
+      "9011922658"
+    ]
+  },
+  {
+    "name": "Dr. Dhatrak Rajesh",
+    "slug": "dr-dhatrak-rajesh",
+    "phone": "9422866928",
+    "phones": [
+      "9422866928"
+    ]
+  },
+  {
+    "name": "Dr. Dhatrak Rupali",
+    "slug": "dr-dhatrak-rupali",
+    "phone": null,
+    "phones": []
+  },
+  {
+    "name": "Dr. Gawande Anup",
+    "slug": "dr-gawande-anup",
+    "phone": "9325643723",
+    "phones": [
+      "9325643723",
+      "9403740705"
+    ]
+  },
+  {
+    "name": "Dr. Gawande Rahul",
+    "slug": "dr-gawande-rahul",
+    "phone": "7028615384",
+    "phones": [
+      "7028615384"
+    ]
+  },
+  {
+    "name": "Dr. Gawande Rushikesh",
+    "slug": "dr-gawande-rushikesh",
+    "phone": "7588591502",
+    "phones": [
+      "7588591502"
+    ]
+  },
+  {
+    "name": "Dr. Gawande Smita",
+    "slug": "dr-gawande-smita",
+    "phone": "9405908014",
+    "phones": [
+      "9405908014"
+    ]
+  },
+  {
+    "name": "Dr. Gawande P. D.",
+    "slug": "dr-gawande-p-d",
+    "phone": "9960916605",
+    "phones": [
+      "9960916605"
+    ]
+  },
+  {
+    "name": "Dr. Gourkar",
+    "slug": "dr-gourkar",
+    "phone": "8698982877",
+    "phones": [
+      "8698982877"
+    ]
+  },
+  {
+    "name": "Dr. Gourkar",
+    "slug": "dr-gourkar-2",
+    "phone": null,
+    "phones": []
+  },
+  {
+    "name": "Dr. Ghawde D. P.",
+    "slug": "dr-ghawde-d-p",
+    "phone": "9422818350",
+    "phones": [
+      "9422818350"
+    ]
+  },
+  {
+    "name": "Dr. Ghawde Pooja",
+    "slug": "dr-ghawde-pooja",
+    "phone": "9420207220",
+    "phones": [
+      "9420207220"
+    ]
+  },
+  {
+    "name": "Dr. Ghawde Swapnil",
+    "slug": "dr-ghawde-swapnil",
+    "phone": "9890176738",
+    "phones": [
+      "9890176738"
+    ]
+  },
+  {
+    "name": "Dr. Ghawde Snehal",
+    "slug": "dr-ghawde-snehal",
+    "phone": null,
+    "phones": []
+  },
+  {
+    "name": "Dr. Hatgaonkar Rahul",
+    "slug": "dr-hatgaonkar-rahul",
+    "phone": "9960645646",
+    "phones": [
+      "9960645646",
+      "8334702736"
+    ]
+  },
+  {
+    "name": "Dr. Humaira",
+    "slug": "dr-humaira",
+    "phone": "8408981938",
+    "phones": [
+      "8408981938"
+    ]
+  },
+  {
+    "name": "Dr. Jaiswal Vaishnavi",
+    "slug": "dr-jaiswal-vaishnavi",
+    "phone": "8983181237",
+    "phones": [
+      "8983181237"
+    ]
+  },
+  {
+    "name": "Dr. Jaipuriya Tushar",
+    "slug": "dr-jaipuriya-tushar",
+    "phone": "9665884230",
+    "phones": [
+      "9665884230"
+    ]
+  },
+  {
+    "name": "Dr. Jadoun Rohitsing",
+    "slug": "dr-jadoun-rohitsing",
+    "phone": "7558235822",
+    "phones": [
+      "7558235822"
+    ]
+  },
+  {
+    "name": "Dr. Jilhekar Sandhya",
+    "slug": "dr-jilhekar-sandhya",
+    "phone": null,
+    "phones": []
+  },
+  {
+    "name": "Dr. Jiddewar Sumita",
+    "slug": "dr-jiddewar-sumita",
+    "phone": "9665634020",
+    "phones": [
+      "9665634020"
+    ]
+  },
+  {
+    "name": "Dr. Kale R. G.",
+    "slug": "dr-kale-r-g",
+    "phone": "9421841445",
+    "phones": [
+      "9421841445"
+    ]
+  },
+  {
+    "name": "Dr. Khaire N. T.",
+    "slug": "dr-khaire-n-t",
+    "phone": "9423239838",
+    "phones": [
+      "9423239838"
+    ]
+  },
+  {
+    "name": "Dr. Kadu Ankur",
+    "slug": "dr-kadu-ankur",
+    "phone": "7588188197",
+    "phones": [
+      "7588188197"
+    ]
+  },
+  {
+    "name": "Dr. Kadu Mayur",
+    "slug": "dr-kadu-mayur",
+    "phone": "8275110035",
+    "phones": [
+      "8275110035"
+    ]
+  },
+  {
+    "name": "Dr. Kadu Trupti",
+    "slug": "dr-kadu-trupti",
+    "phone": "9067306485",
+    "phones": [
+      "9067306485"
+    ]
+  },
+  {
+    "name": "Dr. Mayee Kiran",
+    "slug": "dr-mayee-kiran",
+    "phone": "9422921947",
+    "phones": [
+      "9422921947"
+    ]
+  },
+  {
+    "name": "Dr. Mayee Minal",
+    "slug": "dr-mayee-minal",
+    "phone": "9422865016",
+    "phones": [
+      "9422865016"
+    ]
+  },
+  {
+    "name": "Dr. Madavi Amol",
+    "slug": "dr-madavi-amol",
+    "phone": "9404091750",
+    "phones": [
+      "9404091750"
+    ]
+  },
+  {
+    "name": "Dr. Madavi Sanjay",
+    "slug": "dr-madavi-sanjay",
+    "phone": null,
+    "phones": []
+  },
+  {
+    "name": "Dr. Mustilwar G. L.",
+    "slug": "dr-mustilwar-g-l",
+    "phone": "9423435224",
+    "phones": [
+      "9423435224"
+    ]
+  },
+  {
+    "name": "Dr. Mindewar Shankar",
+    "slug": "dr-mindewar-shankar",
+    "phone": "9403609597",
+    "phones": [
+      "9403609597"
+    ]
+  },
+  {
+    "name": "Dr. Nahate Abhinay",
+    "slug": "dr-nahate-abhinay",
+    "phone": "9404242672",
+    "phones": [
+      "9404242672"
+    ]
+  },
+  {
+    "name": "Dr. Naitam Dipak",
+    "slug": "dr-naitam-dipak",
+    "phone": "9881507841",
+    "phones": [
+      "9881507841"
+    ]
+  },
+  {
+    "name": "Dr. Naitam Ganesh",
+    "slug": "dr-naitam-ganesh",
+    "phone": "9975466750",
+    "phones": [
+      "9975466750"
+    ]
+  },
+  {
+    "name": "Dr. Nemanwar Vipul",
+    "slug": "dr-nemanwar-vipul",
+    "phone": "9370291200",
+    "phones": [
+      "9370291200"
+    ]
+  },
+  {
+    "name": "Dr. Padole Harshal",
+    "slug": "dr-padole-harshal",
+    "phone": "7743987666",
+    "phones": [
+      "7743987666"
+    ]
+  },
+  {
+    "name": "Dr. Pasha Shafae",
+    "slug": "dr-pasha-shafae",
+    "phone": "8275394786",
+    "phones": [
+      "8275394786"
+    ]
+  },
+  {
+    "name": "Dr. Patil Artee",
+    "slug": "dr-patil-artee",
+    "phone": "7588590212",
+    "phones": [
+      "7588590212"
+    ]
+  },
+  {
+    "name": "Dr. Pastapure Amar",
+    "slug": "dr-pastapure-amar",
+    "phone": "8847720886",
+    "phones": [
+      "8847720886"
+    ]
+  },
+  {
+    "name": "Dr. Quazi",
+    "slug": "dr-quazi",
+    "phone": "8855995589",
+    "phones": [
+      "8855995589"
+    ]
+  },
+  {
+    "name": "Dr. Raut Akshay",
+    "slug": "dr-raut-akshay",
+    "phone": "9023870145",
+    "phones": [
+      "9023870145"
+    ]
+  },
+  {
+    "name": "Dr. Rao K. H.",
+    "slug": "dr-rao-k-h",
+    "phone": "9370313651",
+    "phones": [
+      "9370313651"
+    ]
+  },
+  {
+    "name": "Dr. Rehan S. Ahemad",
+    "slug": "dr-rehan-s-ahemad",
+    "phone": "9422123806",
+    "phones": [
+      "9422123806"
+    ]
+  },
+  {
+    "name": "Dr. Rizwan",
+    "slug": "dr-rizwan",
+    "phone": "9765596056",
+    "phones": [
+      "9765596056"
+    ]
+  },
+  {
+    "name": "Dr. Saturwar Vaishali",
+    "slug": "dr-saturwar-vaishali",
+    "phone": "9423745360",
+    "phones": [
+      "9423745360"
+    ]
+  },
+  {
+    "name": "Dr. Sawant Mahesh",
+    "slug": "dr-sawant-mahesh",
+    "phone": "9881856781",
+    "phones": [
+      "9881856781"
+    ]
+  },
+  {
+    "name": "Dr. Sawant Nutan",
+    "slug": "dr-sawant-nutan",
+    "phone": "8605125709",
+    "phones": [
+      "8605125709"
+    ]
+  },
+  {
+    "name": "Dr. Shinde Romharsh",
+    "slug": "dr-shinde-romharsh",
+    "phone": "7507776625",
+    "phones": [
+      "7507776625"
+    ]
+  },
+  {
+    "name": "Dr. Todase Sanjay",
+    "slug": "dr-todase-sanjay",
+    "phone": "9423245060",
+    "phones": [
+      "9423245060"
+    ]
+  },
+  {
+    "name": "Dr. Todase Pratibha",
+    "slug": "dr-todase-pratibha",
+    "phone": "9423248826",
+    "phones": [
+      "9423248826"
+    ]
+  },
+  {
+    "name": "Dr. Tapas Ravi",
+    "slug": "dr-tapas-ravi",
+    "phone": "9422923528",
+    "phones": [
+      "9422923528"
+    ]
+  },
+  {
+    "name": "Dr. Bhagwan Tekam",
+    "slug": "dr-bhagwan-tekam",
+    "phone": null,
+    "phones": []
+  },
+  {
+    "name": "Dr. Tovhar Prajwal",
+    "slug": "dr-tovhar-prajwal",
+    "phone": null,
+    "phones": []
+  },
+  {
+    "name": "Dr. Vedpathak A. A.",
+    "slug": "dr-vedpathak-a-a",
+    "phone": "9421773483",
+    "phones": [
+      "9421773483"
+    ]
+  },
+  {
+    "name": "Dr. Vedpathak Amey",
+    "slug": "dr-vedpathak-amey",
+    "phone": "9404294554",
+    "phones": [
+      "9404294554"
+    ]
+  },
+  {
+    "name": "Dr. Vedpathak U. R.",
+    "slug": "dr-vedpathak-u-r",
+    "phone": "9422922565",
+    "phones": [
+      "9422922565"
+    ]
+  },
+  {
+    "name": "Dr. Ugale Prerna",
+    "slug": "dr-ugale-prerna",
+    "phone": "8275394651",
+    "phones": [
+      "8275394651"
+    ]
+  },
+  {
+    "name": "Dr. Upalenchwar N. S.",
+    "slug": "dr-upalenchwar-n-s",
+    "phone": "9423208854",
+    "phones": [
+      "9423208854"
+    ]
+  }
+] as const
+
+export const OCR_LAB = {
+  "name_en": "Datt Analytical Laboratory",
+  "name_mr": "दत्त अॅनालिटीकल लेबोरेटरी",
+  "operator": "Vivek N. Angaitkar, D.M.L.T.",
+  "address_en": "Pandit Kashalkar Marg (Library Road), Pandharkawada",
+  "phone_note": "A local number is printed in Devanagari, but the scan is not clear enough to transcribe safely."
+} as const
+
+export const OCR_LAB_TESTS = [
+  {
+    "name": "Urine Routine",
+    "slug": "urine-routine",
+    "category": "Urine",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "BS / BP",
+    "slug": "bs-bp",
+    "category": "Urine",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Acetone",
+    "slug": "acetone",
+    "category": "Urine",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Complete exam",
+    "slug": "complete-exam",
+    "category": "Urine",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Pregnancy test",
+    "slug": "pregnancy-test",
+    "category": "Urine",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Culture & Sensitivity test",
+    "slug": "culture-sensitivity-test",
+    "category": "Microbiology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Stools Routine",
+    "slug": "stools-routine",
+    "category": "Stool",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Occult Blood / Sugar",
+    "slug": "occult-blood-sugar",
+    "category": "Stool",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "CBC",
+    "slug": "cbc",
+    "category": "Hematology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "TLC / DLC",
+    "slug": "tlc-dlc",
+    "category": "Hematology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "E.S.R.",
+    "slug": "e-s-r",
+    "category": "Hematology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "H.b%",
+    "slug": "h-b",
+    "category": "Hematology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "TRBC",
+    "slug": "trbc",
+    "category": "Hematology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Platelet Count",
+    "slug": "platelet-count",
+    "category": "Hematology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "P.C.V.",
+    "slug": "p-c-v",
+    "category": "Hematology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "BT/CT",
+    "slug": "bt-ct",
+    "category": "Hematology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Sickling",
+    "slug": "sickling",
+    "category": "Hematology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "M.P.",
+    "slug": "m-p",
+    "category": "Malaria",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Malaria Antigen",
+    "slug": "malaria-antigen",
+    "category": "Malaria",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "PS Examination",
+    "slug": "ps-examination",
+    "category": "Hematology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Mx Test",
+    "slug": "mx-test",
+    "category": "Hematology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Group & Rh typing",
+    "slug": "group-rh-typing",
+    "category": "Blood Grouping",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "V.D.R.L.",
+    "slug": "v-d-r-l",
+    "category": "Serology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Widal test (Tube/Slide test)",
+    "slug": "widal-test-tube-slide-test",
+    "category": "Serology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "C.R.P. (Quantitative)",
+    "slug": "c-r-p-quantitative",
+    "category": "Serology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "R.A. Factor",
+    "slug": "r-a-factor",
+    "category": "Serology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "A.S.O. Titre",
+    "slug": "a-s-o-titre",
+    "category": "Serology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Australia Antigen",
+    "slug": "australia-antigen",
+    "category": "Serology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "HIV - I & II",
+    "slug": "hiv-i-ii",
+    "category": "Serology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Blood Sugar - Fasting / PU",
+    "slug": "blood-sugar-fasting-pu",
+    "category": "Biochemistry",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Blood Sugar - Postmeal / PU",
+    "slug": "blood-sugar-postmeal-pu",
+    "category": "Biochemistry",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Blood Sugar - Random / PU",
+    "slug": "blood-sugar-random-pu",
+    "category": "Biochemistry",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "GTT",
+    "slug": "gtt",
+    "category": "Biochemistry",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "GHbA,C",
+    "slug": "ghba-c",
+    "category": "Biochemistry",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "BL. Urea",
+    "slug": "bl-urea",
+    "category": "Biochemistry",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Serum Creatinine",
+    "slug": "serum-creatinine",
+    "category": "Biochemistry",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Serum Cholesterol",
+    "slug": "serum-cholesterol",
+    "category": "Lipid Profile",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "HDL Cholesterol",
+    "slug": "hdl-cholesterol",
+    "category": "Lipid Profile",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "S. Triglycerides",
+    "slug": "s-triglycerides",
+    "category": "Lipid Profile",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Total Lipid Profile",
+    "slug": "total-lipid-profile",
+    "category": "Lipid Profile",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "S. Total Proteins",
+    "slug": "s-total-proteins",
+    "category": "Biochemistry",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "A/G ratio",
+    "slug": "a-g-ratio",
+    "category": "Biochemistry",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Serum Calcium",
+    "slug": "serum-calcium",
+    "category": "Biochemistry",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Alk. Phosphatase",
+    "slug": "alk-phosphatase",
+    "category": "Liver Function",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "S.G.O.T.",
+    "slug": "s-g-o-t",
+    "category": "Liver Function",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "S.G.P.T.",
+    "slug": "s-g-p-t",
+    "category": "Liver Function",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "S. Bilirubin Total (Direct / Indirect)",
+    "slug": "s-bilirubin-total-direct-indirect",
+    "category": "Liver Function",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Uric acid",
+    "slug": "uric-acid",
+    "category": "Biochemistry",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Serum Na/K",
+    "slug": "serum-na-k",
+    "category": "Electrolytes",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Prothrombin time/INR",
+    "slug": "prothrombin-time-inr",
+    "category": "Coagulation",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Semen Analysis",
+    "slug": "semen-analysis",
+    "category": "Semen",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Sputum AFB",
+    "slug": "sputum-afb",
+    "category": "Microbiology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Gram stain",
+    "slug": "gram-stain",
+    "category": "Microbiology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "Sputum C&S",
+    "slug": "sputum-c-s",
+    "category": "Microbiology",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "T3/T4/TSH",
+    "slug": "t3-t4-tsh",
+    "category": "Thyroid",
+    "availability": "Ambiguous: listed on Page 3 and Page 4",
+    "source": "Page 3"
+  },
+  {
+    "name": "Other Test",
+    "slug": "other-test",
+    "category": "Other",
+    "availability": "Listed on lab form (Page 3)",
+    "source": "Page 3"
+  },
+  {
+    "name": "T3/T4/TSH",
+    "slug": "t3-t4-tsh-2",
+    "category": "Thyroid",
+    "availability": "Ambiguous: listed on Page 3 and Page 4",
+    "source": "Page 4"
+  },
+  {
+    "name": "Free T4",
+    "slug": "free-t4",
+    "category": "Thyroid",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Follicle Stimulating Hormone (FSH)",
+    "slug": "follicle-stimulating-hormone-fsh",
+    "category": "Hormone",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Leutinizing Hormone (LH)",
+    "slug": "leutinizing-hormone-lh",
+    "category": "Hormone",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Prolactine (PRL)",
+    "slug": "prolactine-prl",
+    "category": "Hormone",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Estradiol (E2)",
+    "slug": "estradiol-e2",
+    "category": "Hormone",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Progesterone",
+    "slug": "progesterone",
+    "category": "Hormone",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Alpha Fito Protein (AFP)",
+    "slug": "alpha-fito-protein-afp",
+    "category": "Tumor Marker",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Para Thyroid Harmone",
+    "slug": "para-thyroid-harmone",
+    "category": "Hormone",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Gastrine",
+    "slug": "gastrine",
+    "category": "Hormone",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Growth Harmone (GH)",
+    "slug": "growth-harmone-gh",
+    "category": "Hormone",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "B12",
+    "slug": "b12",
+    "category": "Vitamin",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Insulin",
+    "slug": "insulin",
+    "category": "Hormone",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Anti Nuclear Antibody (ANP)",
+    "slug": "anti-nuclear-antibody-anp",
+    "category": "Autoimmune",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "DNA (Double Strand)",
+    "slug": "dna-double-strand",
+    "category": "Autoimmune",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Toxoplasma Antibodies IgG/IgM",
+    "slug": "toxoplasma-antibodies-igg-igm",
+    "category": "Serology",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Rubela Antibodies IgG/IgM",
+    "slug": "rubela-antibodies-igg-igm",
+    "category": "Serology",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Cytomegalovirus (CMV) IgG/IgM",
+    "slug": "cytomegalovirus-cmv-igg-igm",
+    "category": "Serology",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "TORCH IgG/IgM",
+    "slug": "torch-igg-igm",
+    "category": "Serology",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Antispermatic Antibody",
+    "slug": "antispermatic-antibody",
+    "category": "Serology",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "TB-Antibody IgG/IgM",
+    "slug": "tb-antibody-igg-igm",
+    "category": "Serology",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Anti HBc Total / IgG/Ag",
+    "slug": "anti-hbc-total-igg-ag",
+    "category": "Serology",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Cardiolipin Antibody",
+    "slug": "cardiolipin-antibody",
+    "category": "Autoimmune",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Brucella IgM Antibody",
+    "slug": "brucella-igm-antibody",
+    "category": "Serology",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "AFB Culture",
+    "slug": "afb-culture",
+    "category": "Microbiology",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Hb Electrophoresis",
+    "slug": "hb-electrophoresis",
+    "category": "Hematology",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Urine/Serum Electrophoresis",
+    "slug": "urine-serum-electrophoresis",
+    "category": "Electrophoresis",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Western Blot test for Confirmation of HIV I & II",
+    "slug": "western-blot-test-for-confirmation-of-hiv-i-ii",
+    "category": "Serology",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  },
+  {
+    "name": "Polymerace Chain Reaction (PCR)",
+    "slug": "polymerace-chain-reaction-pcr",
+    "category": "Molecular",
+    "availability": "Not done in this lab; arrangement can be made (Page 4)",
+    "source": "Page 4"
+  }
+] as const

@@ -1,10 +1,23 @@
-from app.ai.providers import AzureOpenAIProvider, DisabledProvider, OllamaProvider, OpenAIProvider, build_ai_provider
+from app.ai.providers import AzureOpenAIProvider, DisabledProvider, DyBrainProvider, OllamaProvider, OpenAIProvider, build_ai_provider
 from app.core.config import Settings
 
 
 def test_disabled_provider_is_default_without_credentials():
     provider = build_ai_provider(Settings(llm_provider="openai", openai_api_key=None))
     assert isinstance(provider, DisabledProvider)
+
+
+def test_dybrain_provider_selected_for_shared_arogya_ai():
+    provider = build_ai_provider(
+        Settings(
+            llm_provider="dybrain",
+            dybrain_api_url="https://example.com",
+            dybrain_api_key="test-key",
+            dybrain_model="qwen2.5vl:3b",
+        )
+    )
+    assert isinstance(provider, DyBrainProvider)
+    assert provider.model == "qwen2.5vl:3b"
 
 
 def test_openai_provider_selected_with_key():

@@ -13,6 +13,7 @@ import { TestsDirectoryPage, TestDetailPage, ProcedureDetailPage, MedicalExplain
 import { HealthAlertsPage, HealthAlertDetailPage } from "@/pages/health-alerts"
 import { EmergencyPage } from "@/pages/emergency"
 import { AskArogyaPage } from "@/pages/ask-arogya"
+import { AiSettingsPage } from "@/pages/ai-settings"
 import { SavedItemsPage } from "@/pages/saved"
 import { AdminLayout } from "@/components/admin/admin-layout"
 import { AdminDashboardPage } from "@/pages/admin/dashboard"
@@ -24,6 +25,7 @@ import {
   AdminInfoPage, AdminLoginPage,
 } from "@/pages/admin/admin-pages"
 import { LanguageProvider } from "@/lib/language-context"
+import { AskArogyaProvider } from "@/lib/ask-arogya-context"
 
 function NotFound() {
   return (
@@ -36,8 +38,9 @@ function NotFound() {
 export function App() {
   return (
     <LanguageProvider>
-      <BrowserRouter>
-        <Routes>
+      <AskArogyaProvider>
+        <BrowserRouter>
+          <Routes>
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/admin" element={<AdminLayout><AdminDashboardPage /></AdminLayout>} />
           <Route path="/admin/doctors" element={<AdminLayout><AdminDoctorsPage /></AdminLayout>} />
@@ -75,11 +78,13 @@ export function App() {
           <Route path="/health-alerts/:slug" element={<PublicLayout><HealthAlertDetailPage /></PublicLayout>} />
           <Route path="/emergency" element={<PublicLayout><EmergencyPage /></PublicLayout>} />
           <Route path="/ask-arogya" element={<PublicLayout fullWidth><AskArogyaPage /></PublicLayout>} />
+          <Route path="/ai-settings" element={<PublicLayout fullWidth><AiSettingsPage /></PublicLayout>} />
           <Route path="/saved" element={<PublicLayout><SavedItemsPage /></PublicLayout>} />
 
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </AskArogyaProvider>
     </LanguageProvider>
   )
 }

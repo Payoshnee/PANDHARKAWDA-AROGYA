@@ -137,7 +137,6 @@ export function OpenNowPage() {
         </div>
       )}
 
-      <p className="text-center text-xs text-muted-foreground pt-6">{t("common.demoData", lang)}</p>
     </div>
   )
 }

@@ -71,7 +71,6 @@ export function TestsDirectoryPage() {
           </div>
         </div>
       )}
-      <p className="text-center text-xs text-muted-foreground pt-6">{t("common.demoData", lang)}</p>
     </div>
   )
 }
@@ -258,7 +257,6 @@ export function MedicalExplainerPage() {
           ))}
         </div>
       )}
-      <p className="text-center text-xs text-muted-foreground pt-6">{t("common.demoData", lang)}</p>
     </div>
   )
 }

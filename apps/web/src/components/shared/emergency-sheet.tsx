@@ -3,7 +3,7 @@ import { Phone, MapPin, Navigation, Ambulance, ShieldAlert, X } from "lucide-rea
 import { useLang } from "@/lib/language-context"
 import { t } from "@/lib/i18n"
 import { usePublicData } from "@/lib/api"
-import { getTelUrl } from "@/lib/utils-health"
+import { getMapsUrl, getTelUrl } from "@/lib/utils-health"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 
@@ -89,7 +89,7 @@ export function EmergencySheet({ open, onOpenChange }: {
                   {t("action.call", lang)}
                 </a>
                 <a
-                  href={`https://www.openstreetmap.org/?mlat=${emergencyFacility.lat}&mlon=${emergencyFacility.lng}#map=18/${emergencyFacility.lat}/${emergencyFacility.lng}`}
+                  href={getMapsUrl(emergencyFacility.lat, emergencyFacility.lng, emergencyFacility.address_en)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-3 py-2 text-xs font-medium shadow-xs hover:bg-accent"
