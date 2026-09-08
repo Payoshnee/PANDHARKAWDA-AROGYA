@@ -16,7 +16,16 @@ import {
 import type { Doctor, Facility, HealthAlert, LabTest, Procedure, Scheme, Specialty, VisitingSession } from "@/types"
 import { getSavedAiSettings } from "@/lib/ai-settings"
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://pandharkawda-arogya.onrender.com"
+const DEFAULT_API_BASE_URL = "https://pandharkawda-arogya.onrender.com"
+const RETIRED_API_BASE_URLS = new Set(["https://pandharkawda-arogya-api.onrender.com"])
+
+function normalizeApiBaseUrl(value: string | undefined) {
+  const trimmed = value?.trim().replace(/\/+$/, "")
+  if (!trimmed || RETIRED_API_BASE_URLS.has(trimmed)) return DEFAULT_API_BASE_URL
+  return trimmed
+}
+
+const API_BASE_URL = normalizeApiBaseUrl(import.meta.env.VITE_API_BASE_URL)
 
 type ApiList<T> = { data: T[] }
 
@@ -279,7 +288,7 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
     return response.json() as Promise<T>
   } catch (error) {
     if (error instanceof TypeError) {
-      throw new Error(`Cannot reach backend API at ${API_BASE_URL || "the local web proxy"}. Check the backend URL and CORS settings.`)
+      throw new Error(`Cannot reach backend API at ${API_BASE_URL}. Check the backend URL and CORS settings.`)
     }
     throw error
   }

@@ -4,12 +4,20 @@ import os
 from pydantic import BaseModel
 
 
+def _cors_origins() -> list[str]:
+    raw = os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:3000,http://127.0.0.1:3000,https://pandharkawda-arogya-web.vercel.app",
+    )
+    return [origin.strip().rstrip("/") for origin in raw.split(",") if origin.strip()]
+
+
 class Settings(BaseModel):
     app_name: str = "Pandharkawda Arogya API"
     environment: str = os.getenv("ENVIRONMENT", "development")
     database_url: str = os.getenv("DATABASE_URL", "postgresql+asyncpg://arogya:arogya_dev@localhost:5432/arogya")
     redis_url: str = os.getenv("REDIS_URL", "redis://localhost:6379/0")
-    cors_origins: list[str] = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(",")
+    cors_origins: list[str] = _cors_origins()
     llm_provider: str = os.getenv("LLM_PROVIDER", "disabled")
     admin_session_cookie: str = os.getenv("ADMIN_SESSION_COOKIE", "arogya_admin")
     dybrain_api_url: str = os.getenv("DYBRAIN_API_URL", "https://payoshneejoshi-dyslexialearn.hf.space")

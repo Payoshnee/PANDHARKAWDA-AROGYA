@@ -6,11 +6,11 @@ Recommended free demo setup:
 
 | Layer | Free Option | Notes |
 |---|---|---|
-| Frontend | Vercel free plan | Best fit for the Next.js app in `apps/web`. |
+| Frontend | Vercel free plan | Best fit for the Vite app in `apps/web`. |
 | API | Render free web service, Railway trial/free credits, or Fly.io free allowance when available | Free API hosting changes often and may sleep when inactive. |
 | PostgreSQL | Neon free tier or Supabase free tier | Use a managed Postgres URL instead of local Docker. |
 | Redis | Upstash free tier | Optional until Redis-backed rate limits/jobs are fully wired. |
-| AI | `LLM_PROVIDER=disabled`, OpenAI, or Azure OpenAI | Local Ollama works on your laptop, but hosted cloud services cannot call `localhost:11434`. |
+| AI | DyBrain, OpenAI, Azure OpenAI, or local Ollama for development | Local Ollama works on your laptop, but hosted cloud services cannot call `localhost:11434`. |
 | Domain | Vercel subdomain | Custom domains are optional. |
 
 ## Important Limits
@@ -28,7 +28,7 @@ Use:
 1. Neon or Supabase for Postgres.
 2. Upstash for Redis.
 3. Render for the FastAPI backend.
-4. Vercel for the Next.js frontend.
+4. Vercel for the Vite frontend.
 
 This keeps the frontend fast and gives the API a normal public URL.
 
@@ -43,8 +43,11 @@ DATABASE_URL=postgresql+asyncpg://USER:PASSWORD@HOST/DB?ssl=require
 REDIS_URL=redis://default:PASSWORD@HOST:PORT
 JWT_SECRET=use-a-long-random-secret
 ADMIN_SESSION_COOKIE=arogya_admin
-CORS_ORIGINS=https://your-vercel-app.vercel.app
-LLM_PROVIDER=disabled
+CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,https://pandharkawda-arogya-web.vercel.app
+LLM_PROVIDER=dybrain
+DYBRAIN_API_URL=https://payoshneejoshi-dyslexialearn.hf.space
+DYBRAIN_MODEL=qwen2.5vl:3b
+DYBRAIN_API_KEY=your-dybrain-token
 OPENAI_API_KEY=
 OPENAI_MODEL=
 AZURE_OPENAI_API_KEY=
@@ -58,10 +61,10 @@ OLLAMA_MODEL=
 Frontend variable:
 
 ```bash
-NEXT_PUBLIC_API_BASE_URL=https://your-api-host.example.com
+VITE_API_BASE_URL=https://pandharkawda-arogya.onrender.com
 ```
 
-For a hosted demo, start with `LLM_PROVIDER=disabled`. The deterministic emergency and local demo-content paths still work without a model provider.
+For the current hosted demo, use `LLM_PROVIDER=dybrain`. The backend must be able to call the hosted Hugging Face Space; local Ollama only works from your laptop unless it is exposed through a reachable server.
 
 ## Step 2: Create Free Postgres
 
@@ -146,15 +149,15 @@ Vercel setup:
 
 | Setting | Value |
 |---|---|
-| Framework | Next.js |
+| Framework | Vite |
 | Root directory | `apps/web` |
 | Build command | `npm run build` |
-| Output | Vercel auto-detect |
+| Output directory | `dist` |
 
 Set this Vercel environment variable:
 
 ```bash
-NEXT_PUBLIC_API_BASE_URL=https://your-api-host.example.com
+VITE_API_BASE_URL=https://pandharkawda-arogya.onrender.com
 ```
 
 Deploy, then open the Vercel URL.
@@ -164,10 +167,12 @@ Deploy, then open the Vercel URL.
 After Vercel gives you a URL, update the API environment:
 
 ```bash
-CORS_ORIGINS=https://your-vercel-app.vercel.app
+CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,https://pandharkawda-arogya-web.vercel.app
 ```
 
 Redeploy or restart the API.
+
+Do not put the Render backend URL in `CORS_ORIGINS` unless you are serving browser pages from that exact backend domain. CORS must list the browser origins that call the API, such as localhost and Vercel.
 
 If you use preview deployments, add each preview URL or implement a safer preview-origin strategy before sharing admin flows.
 
@@ -234,7 +239,7 @@ curl https://your-api-host.example.com/api/v1/doctors
 Frontend checks:
 
 ```bash
-NEXT_PUBLIC_API_BASE_URL=https://your-api-host.example.com npm --workspace apps/web run build
+VITE_API_BASE_URL=https://pandharkawda-arogya.onrender.com npm --workspace apps/web run build
 npm --workspace apps/web run lint
 npm --workspace apps/web run typecheck
 npm --workspace apps/web test
